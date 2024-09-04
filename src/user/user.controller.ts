@@ -84,7 +84,7 @@ export class UserController {
   })
   @HttpCode(HttpStatus.OK)
   findOne(@Param('name') name: string): Promise<User> {
-    return this.userService.findBy({name});
+    return this.userService.findBy({where: name});
   }
 
   @UseGuards(AuthGuard('jwt'))
