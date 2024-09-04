@@ -92,5 +92,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "volta": {
+    "node": "18.17.1",
+    "pnpm": "9.1.1"
   }
 }

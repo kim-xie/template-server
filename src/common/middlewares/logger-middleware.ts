@@ -1,6 +1,5 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
-
 import { WinstonModule } from 'nest-winston';
 import LoggerConfig from '../configs/logger.config';
 

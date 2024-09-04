@@ -9,7 +9,7 @@ const customFormat = format.combine(
   format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
   format.align(),
   format.printf((i) => `${i.level}: ${[i.timestamp]}: ${i.message}`),
-  utilities.format.nestLike('fed-monitor', {
+  utilities.format.nestLike('template-server', {
     prettyPrint: true,
   }),
   format.uncolorize(),
