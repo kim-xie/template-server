@@ -1,0 +1,5 @@
+# 校验文件命名
+npm run lint:ls-lint
+
+# 校验git暂存文件
+npm run lint:staged

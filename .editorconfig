@@ -1,0 +1,15 @@
+# 表示是最顶层的 EditorConfig 配置文件
+# 为了 .editorconfig 能起作用，必须在项目目录下
+root = true
+
+[*]
+charset = utf-8                 # 文件字符编码
+indent_style = tab              # 缩进风格 (tab 或 space)
+indent_size = 2                 # 缩进大小
+end_of_line = lf                # 行尾样式 (lf, crlf, cr)
+trim_trailing_whitespace = true # 去除行尾空白
+insert_final_newline = true     # 文件末尾插入新行
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false

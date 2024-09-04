@@ -1,0 +1,21 @@
+ls:
+  src/**:
+    .less: camelCase
+    .css: camelCase
+    .vue: camelCase
+    .js: camelCase
+    .jsx: camelCase
+    .json: camelCase
+    .ts: camelCase
+    .tsx: camelCase
+    .d.ts: kebab-case
+    .dir: camelCase
+
+ignore:
+  - .git
+  - .husky
+  - .vscode
+  - node_modules
+  - dist
+  - public
+  - dist.zip
