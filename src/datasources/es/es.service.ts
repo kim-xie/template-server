@@ -195,7 +195,6 @@ export class EsService {
       for (let i = 0; i <= day; i++) {
         dateArr.push(dayjs(startTime).add(i, 'day').format(timeFormat));
       }
-      console.log('dateArr', dateArr);
       date = dateArr;
     }
 
@@ -329,8 +328,8 @@ export class EsService {
             [['apiEnv', 'userId'].includes(key)
               ? `authInfo.${key}.keyword`
               : key === 'ip'
-              ? `clientInfo.${key}`
-              : `data.${key}`]: searchParams[key],
+                ? `clientInfo.${key}`
+                : `data.${key}`]: searchParams[key],
           },
         });
       }

@@ -11,21 +11,13 @@ import {
   NotFoundException,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { UserLoginDto } from './dto/login-user.dto';
-import { User } from './user.entity';
+import { UserLoginDto } from './dto/loginUser.dto';
 import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
 
-
-@ApiBearerAuth()
 @ApiTags('user')
 @Controller('user')
 export class UserController {
@@ -57,7 +49,7 @@ export class UserController {
   @ApiOperation({ summary: 'Register user' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @HttpCode(HttpStatus.OK)
-  create(@Body() registerUserDto: RegisterUserDto): Promise<User> {
+  create(@Body() registerUserDto: RegisterUserDto): Promise<any> {
     return this.userService.create(registerUserDto);
   }
 
@@ -67,10 +59,9 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'The found users',
-    type: [User],
   })
   @HttpCode(HttpStatus.OK)
-  findAll(): Promise<User[]> {
+  findAll(): Promise<any[]> {
     return this.userService.findAll();
   }
 
@@ -80,11 +71,10 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'The founded user.',
-    type: User,
   })
   @HttpCode(HttpStatus.OK)
-  findOne(@Param('name') name: string): Promise<User> {
-    return this.userService.findBy({where: name});
+  findOne(@Param('name') name: string): Promise<any> {
+    return this.userService.findBy({ where: name });
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -93,7 +83,6 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'Remove user',
-    type: User,
   })
   @HttpCode(HttpStatus.OK)
   remove(@Param('id') id: string): Promise<void> {

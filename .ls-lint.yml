@@ -6,7 +6,7 @@ ls:
     .js: camelCase
     .jsx: camelCase
     .json: camelCase
-    .ts: camelCase
+    .ts: camelCase | point.case
     .tsx: camelCase
     .d.ts: kebab-case
     .dir: camelCase

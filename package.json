@@ -33,8 +33,10 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.4.0",
     "@prisma/client": "^5.19.1",
+    "ctrip-apollo": "^4.5.1",
     "dayjs": "^1.11.13",
     "kafkajs": "^2.2.4",
+    "loglevel": "^1.9.1",
     "mongodb": "~3.2.7",
     "mongoose": "~5.5.15",
     "nest-winston": "^1.9.7",
@@ -50,6 +52,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-angular": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
     "@ls-lint/ls-lint": "^2.2.3",
     "@nestjs/cli": "^10.0.0",
@@ -93,6 +96,21 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,vue}": [
+      "pnpm run format"
+    ],
+    "package.json": [
+      "pnpm run format"
+    ],
+    "*.md": [
+      "pnpm run format"
+    ]
+  },
+  "browserslist": [
+    "> 0.5%",
+    "not dead"
+  ],
   "volta": {
     "node": "18.17.1",
     "pnpm": "9.1.1"

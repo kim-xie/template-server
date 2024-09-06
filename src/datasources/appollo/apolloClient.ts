@@ -1,13 +1,10 @@
-import log from 'loglevel';
-import { ApolloClient } from './apollo';
-
-// 设置日志级别
-log.setLevel('error');
+// @ts-ignore
+import apollo from 'ctrip-apollo';
 
 // 根据apollo配置设置环境变量
 export function setEnv(configs, type) {
   // 获取所有空间的配置
-  let config = {};
+  let config: any = {};
   Object.keys(configs)?.forEach((key) => {
     config = { ...config, ...configs[key]?.configurations };
   });
@@ -33,31 +30,23 @@ export function setEnv(configs, type) {
 }
 
 // 启动apollo Client
-export function startApolloServer(cb: () => void) {
+export async function startApolloServer(cb: () => void) {
   try {
     // apollo客户端实例  host配置：192.168.10.1 apollo-config.91160.com（开发、测试环境）
-    const apolloClient = new ApolloClient({
-      metaServerUrl: 'http://apollo-config.91160.com',
-      clusterName: 'default',
-      namespaceList: ['application', 'security'],
+    const apolloClient = apollo({
+      host: 'http://apollo-config.91160.com',
       appId: 'webrobot',
-      logger: log
-    });
+    })
+      .cluster('default')
+      .namespace('application')
+      .namespace('security');
 
-    // 初始化配置
-    apolloClient.init().then(() => {
-      // 获取所有配置
-      const config = apolloClient.getConfigs();
-      setEnv(config, 'init');
+    await apolloClient.ready();
+    const confAll = await apolloClient.config();
 
-      cb?.();
-    });
+    setEnv(confAll, 'init');
 
-    // 监控配置变更
-    apolloClient.onChange((config: unknown) => {
-      setEnv(config, 'onChange');
-    });
-
+    cb?.();
   } catch (err) {
     console.log('apolloClient error: ', err);
   }

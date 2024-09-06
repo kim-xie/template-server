@@ -81,7 +81,7 @@ export class EsHistogramService {
       field,
       query,
     } = params;
-    const body = {
+    const body: any = {
       query,
       size: hits_size,
       aggs: {

@@ -1,7 +1,6 @@
 import { format, transports } from 'winston';
 import { utilities } from 'nest-winston';
 import 'winston-daily-rotate-file';
-
 import type { WinstonModuleOptions } from 'nest-winston';
 
 const customFormat = format.combine(
