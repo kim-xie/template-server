@@ -1,12 +1,18 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, Inject, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { WinstonModule } from 'nest-winston';
-import LoggerConfig from '../configs/logger.config';
+// import { WinstonModule } from 'nest-winston';
+// import LoggerConfig from '../configs/logger.config';
 
-export const logger = WinstonModule.createLogger(LoggerConfig);
+// export const logger = WinstonModule.createLogger(LoggerConfig);
+
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
+  constructor(
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+  ) {}
   use(req: Request, res: Response, next: NextFunction) {
     // 获取请求信息
     const { query, headers, url, method, body, params, connection } = req;
@@ -27,11 +33,11 @@ export class LoggerMiddleware implements NestMiddleware {
     )} body:${JSON.stringify(body)} code:${code}`;
     // 根据状态码，进行日志类型区分
     if (code >= 500) {
-      logger.error(logFormat);
+      this.logger.error(logFormat);
     } else if (code >= 400) {
-      logger.warn(logFormat);
+      this.logger.warn(logFormat);
     } else {
-      logger.log(logFormat);
+      this.logger.info(logFormat);
     }
     next();
   }

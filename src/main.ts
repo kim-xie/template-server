@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import type { INestApplication } from '@nestjs/common';
+import { WinstonModule } from 'nest-winston';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 
 // 开启swagger api
 function useSwagger(app: INestApplication) {
   const options = new DocumentBuilder()
-    .setTitle('Swagger example')
+    .setTitle('Swagger API')
     .setDescription('The Swagger API description')
     .setVersion('1.0')
     .addTag('Swagger')
@@ -28,8 +29,13 @@ async function bootstrap() {
   // 使用swagger生成API文档
   useSwagger(app);
 
+  // Use Winston for logging
+  app.useLogger(app.get(WinstonModule));
+
   await app.listen(3000);
 
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
+
+// 启动服务
 bootstrap();

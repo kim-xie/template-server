@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { RegisterUserDto } from './dto/register-user.dto';
+import { RegisterUserDto } from './dto/registerUser.dto';
 import { UserLoginDto } from './dto/loginUser.dto';
 import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
