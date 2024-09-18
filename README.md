@@ -7,7 +7,7 @@ nestjs + typescript + pnpm
 ## 功能列表
 
 1、jwt 授权登录
-1、swagger api 文档生成
+2、swagger api 文档生成
 
 ## Project setup
 
@@ -41,6 +41,20 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## 基建
+
+pnpm install -D @commitlint/cli @commitlint/config-angular @commitlint/config-conventional
+
+pnpm install -D @ls-lint/ls-lint
+
+pnpm install -D eslint prettier husky lint-staged
+
 ## 日志
 
-pnpm install --save nest-winston winston winston-daily-rotate-file
+pnpm install nest-winston winston winston-daily-rotate-file
+
+## 对外API
+
+pnpm install swagger-ui-express @nestjs/swagger
+
+## Apollo

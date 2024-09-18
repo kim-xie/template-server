@@ -1,0 +1,25 @@
+{
+  "application": {
+    "appId": "webrobot",
+    "cluster": "default",
+    "namespaceName": "application",
+    "configurations": {
+      "es": { "host": "http://10.1.2.114:9200,http://10.1.2.80:9200" }
+    },
+    "releaseKey": "20240815202341-71a49fa53817bf31"
+  },
+  "security": {
+    "appId": "webrobot",
+    "cluster": "default",
+    "namespaceName": "security",
+    "configurations": {
+      "mongodb": {
+        "host": "10.1.2.84:27017,10.1.2.85:27017,10.1.2.86:27017",
+        "dbname": "webrobot",
+        "username": "webrobot",
+        "pwd": "NlJ8Np77O2089wI0gx78S3Vf"
+      }
+    },
+    "releaseKey": "20240815202236-e3949fa53817bf30"
+  }
+}

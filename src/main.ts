@@ -5,6 +5,8 @@ import * as winston from 'winston';
 import { WinstonModule } from 'nest-winston';
 import LoggerConfig from './common/configs/logger.config';
 import { AppModule } from './app.module';
+import { startApolloServer } from './datasources/appollo/apolloClient';
+import { connectMongoDB } from './datasources/mongodb';
 
 // 开启swagger api
 function useSwagger(app: INestApplication) {
@@ -41,6 +43,12 @@ async function bootstrap() {
   await app.listen(3000);
 
   logger.info(`Application is running on: ${await app.getUrl()}`);
+
+  // 启动apollo服务
+  await startApolloServer(() => {
+    // 连接数据库
+    connectMongoDB();
+  });
 }
 
 // 启动服务
