@@ -47,7 +47,7 @@ async function bootstrap() {
   // 启动apollo服务
   await startApolloServer(() => {
     // 连接数据库
-    connectMongoDB();
+    connectMongoDB(logger);
   });
 }
 
