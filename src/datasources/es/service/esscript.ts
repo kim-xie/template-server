@@ -6,7 +6,7 @@ import { Injectable, Logger } from '@nestjs/common';
  */
 @Injectable()
 export class EsScriptService {
-  private readonly logger: Logger = new Logger();
+  private readonly logger = new Logger(EsScriptService.name);
   constructor(private readonly esService: ElasticsearchService) {}
 
   /**

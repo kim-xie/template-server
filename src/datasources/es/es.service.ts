@@ -11,7 +11,7 @@ import dayjs from 'src/utils/dateUtil';
  */
 @Injectable()
 export class EsService {
-  private readonly logger: Logger = new Logger(EsService.name);
+  private readonly logger = new Logger(EsService.name);
   private readonly esPrefix = 'fed-monitor';
   constructor(
     private readonly esBaseService: EsBaseService,

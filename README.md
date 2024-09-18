@@ -1,9 +1,11 @@
 # 服务端通用脚手架
 
 ## 技术栈
-nestjs + typescript + pnpm 
+
+nestjs + typescript + pnpm
 
 ## 功能列表
+
 1、jwt 授权登录
 1、swagger api 文档生成
 
@@ -39,3 +41,6 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## 日志
+
+pnpm install --save nest-winston winston winston-daily-rotate-file

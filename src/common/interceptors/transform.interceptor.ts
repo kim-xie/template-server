@@ -10,9 +10,9 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
-  constructor(private readonly logger: Logger) {}
+  private readonly logger = new Logger(TransformInterceptor.name);
+  constructor() {}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    // console.log(context);
     const [req, res] = context.getArgs();
     this.logger.log(
       `${req.method} ${req.originalUrl} ${req.ip} query:${JSON.stringify(

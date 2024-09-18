@@ -9,7 +9,7 @@ import { Injectable, Logger } from '@nestjs/common';
  */
 @Injectable()
 export class EsAggsService {
-  private readonly logger: Logger = new Logger();
+  private readonly logger = new Logger(EsAggsService.name);
   constructor(private readonly esService: ElasticsearchService) {}
 
   /**

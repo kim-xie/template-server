@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import type { INestApplication } from '@nestjs/common';
-import { WinstonModule } from 'nest-winston';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as winston from 'winston';
+import { WinstonModule } from 'nest-winston';
+import LoggerConfig from './common/configs/logger.config';
 import { AppModule } from './app.module';
 
 // 开启swagger api
@@ -17,8 +19,15 @@ function useSwagger(app: INestApplication) {
 }
 
 async function bootstrap() {
+  // 使用 Winston 日志
+  const logger = winston.createLogger(LoggerConfig);
   // 创建实例
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(logger),
+  });
+
+  // 服务统一前缀（适用于统一网关服务）
+  // app.setGlobalPrefix('api')
 
   // cors：跨域资源共享
   app.enableCors({
@@ -29,12 +38,9 @@ async function bootstrap() {
   // 使用swagger生成API文档
   useSwagger(app);
 
-  // Use Winston for logging
-  app.useLogger(app.get(WinstonModule));
-
   await app.listen(3000);
 
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  logger.info(`Application is running on: ${await app.getUrl()}`);
 }
 
 // 启动服务

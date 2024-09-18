@@ -1,18 +1,10 @@
-import { Injectable, Inject, NestMiddleware } from '@nestjs/common';
+import { Injectable, Inject, NestMiddleware, Logger } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-// import { WinstonModule } from 'nest-winston';
-// import LoggerConfig from '../configs/logger.config';
-
-// export const logger = WinstonModule.createLogger(LoggerConfig);
-
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
-  ) {}
+  private readonly logger = new Logger(LoggerMiddleware.name);
+  constructor() {}
   use(req: Request, res: Response, next: NextFunction) {
     // 获取请求信息
     const { query, headers, url, method, body, params, connection } = req;
@@ -37,7 +29,7 @@ export class LoggerMiddleware implements NestMiddleware {
     } else if (code >= 400) {
       this.logger.warn(logFormat);
     } else {
-      this.logger.info(logFormat);
+      this.logger.log(logFormat);
     }
     next();
   }

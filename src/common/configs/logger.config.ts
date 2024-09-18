@@ -1,44 +1,51 @@
 import { format, transports } from 'winston';
-import { utilities } from 'nest-winston';
-import 'winston-daily-rotate-file';
 import type { WinstonModuleOptions } from 'nest-winston';
+import 'winston-daily-rotate-file';
 
-const customFormat = format.combine(
-  format.colorize(),
-  format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-  format.align(),
-  format.printf((i) => `${i.level}: ${[i.timestamp]}: ${i.message}`),
-  utilities.format.nestLike('template-server', {
-    prettyPrint: true,
-  }),
-  format.uncolorize(),
-);
-const defaultOptions = {
-  format: customFormat,
+// 日志输出格式化
+const customFormat = (showColor = false) =>
+  format.combine(
+    showColor
+      ? format.colorize({
+          level: true,
+          message: true,
+          colors: { info: 'green', error: 'red', warn: 'yellow' },
+        })
+      : format.uncolorize(),
+    format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
+    format.printf(({ timestamp, level, message }) => {
+      return `[Nest] ${process.pid} - ${timestamp} [${level}] ${message}`;
+    }),
+  );
+
+// 日志分割默认参数
+const dailyRotateDefaultOptions = {
+  format: customFormat(),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d',
 };
 
-const config: WinstonModuleOptions = {
+// winston 日志配置
+const winstonLoggerConfig: WinstonModuleOptions = {
   exitOnError: false,
-  format: customFormat,
+  format: customFormat(),
   transports: [
     new transports.Console({
-      format: format.combine(format.colorize({ all: true })),
+      format: customFormat(true),
     }),
     new transports.DailyRotateFile({
       filename: 'logs/info-%DATE%.log',
       level: 'info',
-      ...defaultOptions,
+      ...dailyRotateDefaultOptions,
     }),
     new transports.DailyRotateFile({
       filename: 'logs/error-%DATE%.log',
       level: 'error',
-      ...defaultOptions,
+      ...dailyRotateDefaultOptions,
     }),
   ],
 };
 
-export default config;
+export default winstonLoggerConfig;

@@ -4,15 +4,16 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
+  Inject,
   Logger,
 } from '@nestjs/common';
 
 import * as StackTrace from 'stacktrace-js';
-
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  private readonly logger = new Logger(AllExceptionsFilter.name);
   // 如果有日志服务，可以在constructor,中挂载logger处理函数
-  constructor(private readonly logger: Logger) {}
+  constructor() {}
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
