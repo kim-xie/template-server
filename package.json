@@ -34,7 +34,6 @@
     "@nestjs/swagger": "^7.4.0",
     "@prisma/client": "^5.19.1",
     "axios": "^1.7.7",
-    "ctrip-apollo": "^4.5.1",
     "dayjs": "^1.11.13",
     "debug": "^4.3.7",
     "get-value": "^3.0.1",
