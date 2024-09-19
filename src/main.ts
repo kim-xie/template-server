@@ -40,15 +40,17 @@ async function bootstrap() {
   // 使用swagger生成API文档
   useSwagger(app);
 
-  await app.listen(3000);
+  // 服务监听
+  const port = process.env['PORT'] || 3000;
+  await app.listen(port);
 
-  logger.info(`Application is running on: ${await app.getUrl()}`);
+  // 服务地址
+  const serviceUrl = (await app.getUrl()).replace('[::1]', 'localhost');
+  logger.info(`Application is running at: ${serviceUrl}`);
+  logger.info(`Swagger API is running at: ${serviceUrl}/api`);
 
   // 启动apollo服务
-  await startApolloServer(() => {
-    // 连接数据库
-    connectMongoDB(logger);
-  });
+  await startApolloServer(logger);
 }
 
 // 启动服务

@@ -5,7 +5,7 @@ import log from 'loglevel';
 log.setLevel('error');
 
 // 根据apollo配置设置环境变量
-export function setEnv(configs, type) {
+export function setEnv(configs, type, logger) {
   // 获取所有空间的配置
   let config = {
     es: { host: '' },
@@ -25,20 +25,30 @@ export function setEnv(configs, type) {
   process.env['MONGODB_DBNAME'] = mongodb?.dbname;
 
   if (!es?.host) {
-    console.log('not found es config');
     return;
   }
 
   if (!mongodb?.host) {
-    console.log('not found mongodb config');
     return;
   }
 
-  console.log(`apolloClient ${type} done`);
+  if (mongodb?.host) {
+    const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DBNAME } =
+      process.env || {};
+    if (MONGODB_HOST && !process.env['MONGODB_DATABASE_URL']) {
+      logger.info(`MongoDB Nodes: ${MONGODB_HOST}`);
+      const MONGODB_CONNECTSTRING = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DBNAME}?authSource=admin&retryWrites=true`;
+      process.env['MONGODB_DATABASE_URL'] = MONGODB_CONNECTSTRING;
+    }
+  }
+
+  console.log('process.env', process.env);
+
+  logger.info(`apolloClient ${type} done`);
 }
 
 // 启动apollo Client
-export async function startApolloServer(cb?: () => void) {
+export async function startApolloServer(logger, cb?: () => void) {
   try {
     // apollo客户端实例  host配置：192.168.10.1 apollo-config.91160.com（开发、测试环境）
     const apolloClient = new ApolloClient({
@@ -53,14 +63,14 @@ export async function startApolloServer(cb?: () => void) {
     apolloClient.init().then(() => {
       // 获取所有配置
       const config = apolloClient.getConfigs();
-      setEnv(config, 'init');
+      setEnv(config, 'init', logger);
       // 只在初始化的时候启动监听（避免appollo配置更新导致重复监听）
       cb?.();
     });
 
     // 监控配置变更
     apolloClient.onChange((config) => {
-      setEnv(config, 'onChange');
+      setEnv(config, 'onChange', logger);
     });
   } catch (err) {
     console.log('apolloClient error: ', err);

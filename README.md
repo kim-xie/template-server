@@ -58,3 +58,24 @@ pnpm install nest-winston winston winston-daily-rotate-file
 pnpm install swagger-ui-express @nestjs/swagger
 
 ## Apollo
+
+## jwt
+
+pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
+
+## prisma
+
+pnpm install @nestjs/prisma prisma @prisma/client
+
+```js
+
+// 初始化
+npx prisma init
+
+// 生成客户端
+npx prisma generate
+
+// 迁移数据库
+npx prisma migrate dev --name init
+
+```

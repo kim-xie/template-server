@@ -16,7 +16,9 @@ datasource db {
 
 
 model User {
-  id        Int     @default(autoincrement()) @id
-  name      String
-  password  String
+  id          String        @id @default(cuid())  @map("_id") // 使用 cuid() 作为唯一标识符
+  name        String
+  password    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
