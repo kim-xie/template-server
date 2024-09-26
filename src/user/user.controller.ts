@@ -10,6 +10,7 @@ import {
   NotAcceptableException,
   NotFoundException,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -21,6 +22,7 @@ import { AuthService } from '../auth/auth.service';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
+  private readonly logger = new Logger(UserController.name);
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
@@ -53,7 +55,7 @@ export class UserController {
     return this.userService.create(registerUserDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get('/all')
   @ApiOperation({ summary: 'Find all users' })
   @ApiResponse({
@@ -62,6 +64,7 @@ export class UserController {
   })
   @HttpCode(HttpStatus.OK)
   findAll(): Promise<any[]> {
+    this.logger.log('get all user');
     return this.userService.findAll();
   }
 

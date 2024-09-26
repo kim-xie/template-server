@@ -11,7 +11,7 @@ generator client {
 // 指定数据库
 datasource db {
   provider = "mongodb"
-  url      = env("MONGODB_DATABASE_URL")
+  url      =  env("MONGODB_DATABASE_URL")
 }
 
 

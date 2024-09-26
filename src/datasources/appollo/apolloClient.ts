@@ -39,10 +39,9 @@ export function setEnv(configs, type, logger) {
       logger.info(`MongoDB Nodes: ${MONGODB_HOST}`);
       const MONGODB_CONNECTSTRING = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DBNAME}?authSource=admin&retryWrites=true`;
       process.env['MONGODB_DATABASE_URL'] = MONGODB_CONNECTSTRING;
+      logger.info(`MongoDB Nodes: ${process.env['MONGODB_DATABASE_URL']}`);
     }
   }
-
-  console.log('process.env', process.env);
 
   logger.info(`apolloClient ${type} done`);
 }
