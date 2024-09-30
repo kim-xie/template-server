@@ -1,13 +1,26 @@
-import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  OnModuleInit,
+  OnModuleDestroy,
+  Logger,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   private readonly logger = new Logger(PrismaService.name);
   constructor() {
     super({
       log: ['query', 'info', 'warn', 'error'], // 启用查询、信息、警告和错误日志
-      datasourceUrl: process.env['MONGODB_DATABASE_URL'],
+      // datasourceUrl: process.env['MONGODB_DATABASE_URL'],
+      datasources: {
+        db: {
+          url: process.env['MONGODB_DATABASE_URL'],
+        },
+      },
     });
   }
   async onModuleInit() {

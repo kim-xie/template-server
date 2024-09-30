@@ -50,7 +50,9 @@ async function bootstrap() {
   logger.info(`Swagger API is running at: ${serviceUrl}/api`);
 
   // 启动apollo服务
-  await startApolloServer(logger);
+  await startApolloServer(logger, () => {
+    // connectMongoDB(logger)
+  });
 }
 
 // 启动服务

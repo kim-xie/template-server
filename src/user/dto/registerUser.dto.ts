@@ -3,19 +3,11 @@ import { UserLoginDto } from './loginUser.dto';
 
 export class RegisterUserDto extends UserLoginDto {
   @ApiProperty({
-    description: 'The real name',
+    description: 'The name',
   })
-  realName: string;
+  name: string;
   @ApiProperty({
-    description: 'The nick name',
+    description: 'The password',
   })
-  nickName: string;
-  @ApiProperty({
-    description: 'The mobile number',
-  })
-  mobile: string;
-  @ApiProperty({
-    description: 'Confirm password',
-  })
-  confirmPassword: string;
+  password: string;
 }

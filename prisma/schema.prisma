@@ -11,12 +11,12 @@ generator client {
 // 指定数据库
 datasource db {
   provider = "mongodb"
-  url      =  env("MONGODB_DATABASE_URL")
+  url      = "mongodb://webrobot:NlJ8Np77O2089wI0gx78S3Vf@10.1.2.84:27017,10.1.2.85:27017,10.1.2.86:27017/webrobot?authSource=admin&retryWrites=true"
 }
 
 
 model User {
-  id          String        @id @default(cuid())  @map("_id") // 使用 cuid() 作为唯一标识符
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   password    String
   createdAt   DateTime      @default(now())
