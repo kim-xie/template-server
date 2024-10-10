@@ -7,6 +7,7 @@ import LoggerConfig from './common/configs/logger.config';
 import { AppModule } from './app.module';
 import { startApolloServer } from './datasources/appollo/apolloClient';
 import { connectMongoDB } from './datasources/mongodb';
+import { createUser, findAllUser } from './datasources/mongodb/service/user';
 
 // 开启swagger api
 function useSwagger(app: INestApplication) {
@@ -50,8 +51,10 @@ async function bootstrap() {
   logger.info(`Swagger API is running at: ${serviceUrl}/api`);
 
   // 启动apollo服务
-  await startApolloServer(logger, () => {
-    // connectMongoDB(logger)
+  await startApolloServer(logger, async () => {
+    // MongoDB 连接测试
+    // await connectMongoDB(logger);
+    // await createUser({ name: 'kim', password: '123456' });
   });
 }
 

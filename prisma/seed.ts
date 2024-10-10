@@ -10,13 +10,15 @@ const initUsers = [
 ];
 
 async function main() {
-  await prisma.user.createMany({
+  const users = await prisma.user.createMany({
     data: initUsers,
   });
+  console.log('createUsers result:', users);
 }
 
 main()
   .catch((e) => {
+    console.error('Error info:', e.message);
     console.error(e);
     process.exit(1);
   })

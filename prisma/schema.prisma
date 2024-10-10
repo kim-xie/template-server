@@ -10,13 +10,13 @@ generator client {
 
 // 指定数据库
 datasource db {
-  provider = "mongodb"
-  url      = "mongodb://webrobot:NlJ8Np77O2089wI0gx78S3Vf@10.1.2.84:27017,10.1.2.85:27017,10.1.2.86:27017/webrobot?authSource=admin&retryWrites=true"
+  provider = "mysql"
+  url      = env("MYSQL_DATABASE_URL")
 }
 
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   name        String
   password    String
   createdAt   DateTime      @default(now())

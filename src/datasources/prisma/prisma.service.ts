@@ -15,10 +15,10 @@ export class PrismaService
   constructor() {
     super({
       log: ['query', 'info', 'warn', 'error'], // 启用查询、信息、警告和错误日志
-      // datasourceUrl: process.env['MONGODB_DATABASE_URL'],
+      // datasourceUrl: process.env['MYSQL_DATABASE_URL'],
       datasources: {
         db: {
-          url: process.env['MONGODB_DATABASE_URL'],
+          url: process.env['MYSQL_DATABASE_URL'],
         },
       },
     });

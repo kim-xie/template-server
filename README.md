@@ -59,6 +59,9 @@ pnpm install swagger-ui-express @nestjs/swagger
 
 ## Apollo
 
+参考配置：http://10.1.10.106:8070/config.html?#/appid=webrobot
+**具体使用查看datasources/appollo**
+
 ## jwt
 
 pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
@@ -67,15 +70,22 @@ pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
 
 pnpm install @nestjs/prisma prisma @prisma/client
 
+**Monogodb采用原生的连接方式，不使用prisma。具体使用查看datasources/mongodb**
+
 ```js
 
-// 初始化
+// 初始化(生成prisma模型定义文件，数据库连接驱动)
 npx prisma init
 
-// 生成客户端
-npx prisma generate
+// 迁移数据库 将定义的数据模型迁到数据库中 (以下命令仅适用于关系型数据库mysql等)
+pnpm run db:migrate or npx prisma migrate dev --name init
 
-// 迁移数据库
-npx prisma migrate dev --name init
+// 生成客户端
+pnpm run db:generate or npx prisma generate
+
+// 连接数据库客户端执行数据初始化
+pnpm run db:seed
 
 ```
+
+**开发环境测试数据库请看：https://confluence.rd.91160.com/pages/viewpage.action?pageId=24790653**

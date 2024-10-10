@@ -1,8 +1,27 @@
 import { ApolloClient } from './apollo';
 import log from 'loglevel';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // 设置日志级别
 log.setLevel('error');
+
+// 修改 .env 文件的指定键值
+function updateEnvFile(key: string, value: string) {
+  const envFilePath = path.join(__dirname, '..', '..', '..', '.env');
+  const envFileContent = fs.readFileSync(envFilePath, 'utf8');
+  const newContent = envFileContent
+    .split('\n')
+    .map((line) => {
+      if (line.startsWith(key)) {
+        return `${key}=${value}`;
+      }
+      return line;
+    })
+    .join('\n');
+
+  fs.writeFileSync(envFilePath, newContent, 'utf8');
+}
 
 // 根据apollo配置设置环境变量
 export function setEnv(configs, type, logger) {
@@ -10,6 +29,7 @@ export function setEnv(configs, type, logger) {
   let config = {
     es: { host: '' },
     mongodb: { username: '', pwd: '', host: '', dbname: '' },
+    mysql: { username: '', pwd: '', host: '', dbname: '' },
   };
 
   // 解析配置
@@ -17,12 +37,20 @@ export function setEnv(configs, type, logger) {
     config = { ...config, ...configs[key]?.configurations };
   });
 
-  const { es, mongodb } = config;
+  const { es, mongodb, mysql } = config;
+  // ES
   process.env['ES_HOST'] = es?.host;
+  // MONGODB
   process.env['MONGODB_USERNAME'] = mongodb?.username;
   process.env['MONGODB_PASSWORD'] = mongodb?.pwd;
   process.env['MONGODB_HOST'] = mongodb?.host;
   process.env['MONGODB_DBNAME'] = mongodb?.dbname;
+
+  // MYSQL
+  process.env['MYSQL_USERNAME'] = mysql?.username;
+  process.env['MYSQL_PASSWORD'] = mysql?.pwd;
+  process.env['MYSQL_HOST'] = mysql?.host;
+  process.env['MYSQL_DBNAME'] = mysql?.dbname;
 
   if (!es?.host) {
     return;
@@ -32,16 +60,26 @@ export function setEnv(configs, type, logger) {
     return;
   }
 
-  if (mongodb?.host) {
-    const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DBNAME } =
+  if (mysql?.host) {
+    const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DBNAME } =
       process.env || {};
-    if (MONGODB_HOST && !process.env['MONGODB_DATABASE_URL']) {
-      logger.info(`MongoDB Nodes: ${MONGODB_HOST}`);
-      const MONGODB_CONNECTSTRING = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DBNAME}?authSource=admin&retryWrites=true`;
-      process.env['MONGODB_DATABASE_URL'] = MONGODB_CONNECTSTRING;
-      logger.info(`MongoDB Nodes: ${process.env['MONGODB_DATABASE_URL']}`);
+    if (MYSQL_HOST && !process.env['MYSQL_DATABASE_URL']) {
+      const MYSQL_CONNECTSTRING = `mysql://${MYSQL_USERNAME}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DBNAME}`;
+      process.env['MYSQL_DATABASE_URL'] = MYSQL_CONNECTSTRING;
+      logger.info(`MYSQL Nodes: ${process.env['MYSQL_DATABASE_URL']}`);
     }
   }
+
+  // if (mongodb?.host) {
+  //   const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DBNAME } =
+  //     process.env || {};
+  //   if (MONGODB_HOST && !process.env['MONGODB_DATABASE_URL']) {
+  //     logger.info(`MongoDB Nodes: ${MONGODB_HOST}`);
+  //     const MONGODB_CONNECTSTRING = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DBNAME}?authSource=admin&retryWrites=true`;
+  //     process.env['MONGODB_DATABASE_URL'] = MONGODB_CONNECTSTRING;
+  //     logger.info(`MongoDB Nodes: ${process.env['MONGODB_DATABASE_URL']}`);
+  //   }
+  // }
 
   logger.info(`apolloClient ${type} done`);
 }

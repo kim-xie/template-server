@@ -18,8 +18,14 @@
         "dbname": "webrobot",
         "username": "webrobot",
         "pwd": "NlJ8Np77O2089wI0gx78S3Vf"
+      },
+      "mysql": {
+        "username": "root",
+        "pwd": "45e17gnm9HY6",
+        "host": "10.1.10.55:3306",
+        "dbname": "bff"
       }
     },
-    "releaseKey": "20240815202236-e3949fa53817bf30"
+    "releaseKey": "20241010151521-e3949fa53817bf8a"
   }
 }
