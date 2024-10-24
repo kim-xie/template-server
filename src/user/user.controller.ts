@@ -60,11 +60,10 @@ export class UserController {
   @ApiOperation({ summary: 'Find all users' })
   @ApiResponse({
     status: 200,
-    description: 'The found users',
+    description: 'Find all users',
   })
   @HttpCode(HttpStatus.OK)
   findAll(): Promise<any[]> {
-    this.logger.log('get all user');
     return this.userService.findAll();
   }
 

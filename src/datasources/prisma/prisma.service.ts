@@ -14,7 +14,7 @@ export class PrismaService
   private readonly logger = new Logger(PrismaService.name);
   constructor() {
     super({
-      log: ['query', 'info', 'warn', 'error'], // 启用查询、信息、警告和错误日志
+      log: ['query', 'info', 'warn', 'error'], // 启用 prisma 查询、信息、警告和错误日志
       // datasourceUrl: process.env['MYSQL_DATABASE_URL'],
       datasources: {
         db: {

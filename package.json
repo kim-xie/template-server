@@ -37,6 +37,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.4.0",
     "@nestjs/terminus": "^10.2.3",
+    "@ny/luban-ladder": "^1.7.23",
     "@prisma/client": "^5.19.1",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",

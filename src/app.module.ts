@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [], // 依赖注入
+  imports: [UserModule], // 依赖注入
   controllers: [AppController],
   providers: [AppService],
 })

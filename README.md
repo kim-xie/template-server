@@ -53,6 +53,8 @@ pnpm install -D eslint prettier husky lint-staged
 
 pnpm install nest-winston winston winston-daily-rotate-file
 
+日志按日分割
+
 ## 对外API
 
 pnpm install swagger-ui-express @nestjs/swagger

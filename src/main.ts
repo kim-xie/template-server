@@ -6,6 +6,9 @@ import { WinstonModule } from 'nest-winston';
 import LoggerConfig from './common/configs/logger.config';
 import { AppModule } from './app.module';
 import { startApolloServer } from './datasources/appollo/apolloClient';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { AllExceptionsFilter } from './common/filters/all.exception';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { connectMongoDB } from './datasources/mongodb';
 import { createUser, findAllUser } from './datasources/mongodb/service/user';
 
@@ -29,14 +32,23 @@ async function bootstrap() {
     logger: WinstonModule.createLogger(logger),
   });
 
-  // 服务统一前缀（适用于统一网关服务）
-  // app.setGlobalPrefix('api')
-
   // cors：跨域资源共享
   app.enableCors({
     origin: true,
     credentials: true,
   });
+
+  // 全局日志中间件
+  app.use(new LoggerMiddleware().use);
+
+  // 服务统一前缀（适用于统一网关服务）
+  // app.setGlobalPrefix('api')
+
+  // 全局异常过滤器
+  app.useGlobalFilters(new AllExceptionsFilter());
+
+  // 全局响应拦截器
+  app.useGlobalInterceptors(new ResponseInterceptor());
 
   // 使用swagger生成API文档
   useSwagger(app);

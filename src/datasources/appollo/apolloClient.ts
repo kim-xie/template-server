@@ -81,7 +81,7 @@ export function setEnv(configs, type, logger) {
   //   }
   // }
 
-  logger.info(`apolloClient ${type} done`);
+  logger.info(`ApolloClient ${type} done`);
 }
 
 // 启动apollo Client
