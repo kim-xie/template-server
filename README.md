@@ -2,12 +2,16 @@
 
 ## 技术栈
 
-nestjs + typescript + pnpm
+nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elasticsearch
 
 ## 功能列表
 
-1、jwt 授权登录
-2、swagger api 文档生成
+1、jwt 登录鉴权
+2、swagger api 在线文档
+3、appollo appollo对接
+4、数据库连接（MySQL、MongoDB）持久层框架ORM（prisma）
+5、基建：代码规范、风格、文件命名、提交规范、CICD、docker、拦截器、中间件，统一出参
+6、日志跟踪（winston）
 
 ## Project setup
 
