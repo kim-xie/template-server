@@ -6,4 +6,4 @@ import HealthController from './health.controller';
   imports: [TerminusModule],
   controllers: [HealthController],
 })
-export default class HealthModule {}
+export class HealthModule {}
