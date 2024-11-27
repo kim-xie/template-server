@@ -19,7 +19,7 @@ import { UserLoginDto } from './dto/loginUser.dto';
 import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
 
-@ApiTags('user')
+@ApiTags('用户模块')
 @Controller('user')
 export class UserController {
   private readonly logger = new Logger(UserController.name);
@@ -29,7 +29,7 @@ export class UserController {
   ) {}
 
   @Post('login')
-  @ApiOperation({ summary: 'login' })
+  @ApiOperation({ summary: '用户登录' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginParmas: UserLoginDto) {
@@ -48,7 +48,7 @@ export class UserController {
   }
 
   @Post('register')
-  @ApiOperation({ summary: 'Register user' })
+  @ApiOperation({ summary: '用户注册' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @HttpCode(HttpStatus.OK)
   create(@Body() registerUserDto: RegisterUserDto): Promise<any> {
@@ -57,7 +57,7 @@ export class UserController {
 
   // @UseGuards(AuthGuard('jwt'))
   @Get('/all')
-  @ApiOperation({ summary: 'Find all users' })
+  @ApiOperation({ summary: '查询所有用户' })
   @ApiResponse({
     status: 200,
     description: 'Find all users',
@@ -69,7 +69,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get(':name')
-  @ApiOperation({ summary: 'Find user' })
+  @ApiOperation({ summary: '根据用户名查询用户' })
   @ApiResponse({
     status: 200,
     description: 'The founded user.',
@@ -81,7 +81,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  @ApiOperation({ summary: 'Remove user by id' })
+  @ApiOperation({ summary: '删除用户' })
   @ApiResponse({
     status: 200,
     description: 'Remove user',

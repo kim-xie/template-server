@@ -14,7 +14,7 @@ const customFormat = (showColor = false) =>
       : format.uncolorize(),
     format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
     format.printf(({ timestamp, level, message }) => {
-      return `[NestApplication] ${process.pid} - ${timestamp} [${level}] ${message}`;
+      return `[NestApp] ${process.pid} - ${timestamp} [${level}] ${message}`;
     }),
   );
 

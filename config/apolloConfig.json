@@ -1,31 +1,36 @@
 {
   "application": {
-    "appId": "webrobot",
+    "appId": "intranet-bff",
     "cluster": "default",
     "namespaceName": "application",
     "configurations": {
       "es": { "host": "http://10.1.2.114:9200,http://10.1.2.80:9200" }
     },
-    "releaseKey": "20240815202341-71a49fa53817bf31"
+    "releaseKey": "20241118152325-7ee29fa53817bfce"
   },
   "security": {
-    "appId": "webrobot",
+    "appId": "intranet-bff",
     "cluster": "default",
     "namespaceName": "security",
     "configurations": {
       "mongodb": {
         "host": "10.1.2.84:27017,10.1.2.85:27017,10.1.2.86:27017",
-        "dbname": "webrobot",
-        "username": "webrobot",
-        "pwd": "NlJ8Np77O2089wI0gx78S3Vf"
+        "dbname": "frontend_db",
+        "username": "frontend_db",
+        "pwd": "Pk2iCawhNj_EFc0bnv9h"
       },
       "mysql": {
-        "username": "root",
-        "pwd": "45e17gnm9HY6",
-        "host": "10.1.10.55:3306",
-        "dbname": "bff"
+        "username": "frontend_db",
+        "pwd": "bpH7oRS3e9_EAzDLjewc",
+        "host": "10.1.2.200:4000",
+        "dbname": "frontend_db",
+        "robot": {
+          "host": "mysql://10.1.2.200:4000/robot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+          "username": "robot",
+          "password": "wjsWWEkqid71q_la3zZao"
+        }
       }
     },
-    "releaseKey": "20241010151521-e3949fa53817bf8a"
+    "releaseKey": "20241127135119-f0d29fa53817bfe4"
   }
 }

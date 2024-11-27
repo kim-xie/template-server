@@ -6,20 +6,22 @@ nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elast
 
 ## 功能列表
 
+```bash
 1、jwt 登录鉴权
 2、swagger api 在线文档
 3、appollo appollo对接
 4、数据库连接（MySQL、MongoDB）持久层框架ORM（prisma）
 5、基建：代码规范、风格、文件命名、提交规范、CICD、docker、拦截器、中间件，统一出参
 6、日志跟踪（winston）
+```
 
-## Project setup
+## 项目启动
 
 ```bash
 $ pnpm install
 ```
 
-## Compile and run the project
+## 快速上手
 
 ```bash
 # development
@@ -32,7 +34,7 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## Run tests
+## 测试
 
 ```bash
 # unit tests
@@ -65,7 +67,7 @@ pnpm install swagger-ui-express @nestjs/swagger
 
 ## Apollo
 
-参考配置：http://10.1.10.106:8070/config.html?#/appid=webrobot
+参考配置：http://10.1.10.106:8070/config.html?#/appid=intranet-bff
 **具体使用查看datasources/appollo**
 
 ## jwt
@@ -77,6 +79,8 @@ pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
 pnpm install @nestjs/prisma prisma @prisma/client
 
 **Monogodb采用原生的连接方式，不使用prisma。具体使用查看datasources/mongodb**
+
+**prisma连接的数据库账号密码，不能带有@符号**
 
 ```js
 
@@ -95,3 +99,17 @@ pnpm run db:seed
 ```
 
 **开发环境测试数据库请看：https://confluence.rd.91160.com/pages/viewpage.action?pageId=24790653**
+
+## 数据库
+
+测试环境
+
+tidb / mysql
+10.1.2.200:4000  
+frontend_db/bpH7oRS3e9_EAzDLjewc
+
+mongodb
+10.1.2.84:27017
+10.1.2.85:27017
+10.1.2.86:27017
+frontend_db/Pk2iCawhNj_EFc0bnv9h

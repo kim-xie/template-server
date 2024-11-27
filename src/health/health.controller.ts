@@ -6,7 +6,9 @@ import {
   DiskHealthIndicator,
   HealthCheckResult,
 } from '@nestjs/terminus';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('健康检查模块')
 @Controller('health')
 export default class HealthController {
   constructor(
@@ -15,6 +17,7 @@ export default class HealthController {
     private readonly disk: DiskHealthIndicator,
   ) {}
 
+  @ApiOperation({ summary: '健康检查' })
   @Get()
   @HealthCheck()
   check(): Promise<HealthCheckResult> {
@@ -23,6 +26,7 @@ export default class HealthController {
     ]);
   }
 
+  @ApiOperation({ summary: '内存检查' })
   @Get('memory')
   @HealthCheck()
   checkMemory(): Promise<HealthCheckResult> {
@@ -49,6 +53,7 @@ export default class HealthController {
     ]);
   }
 
+  @ApiOperation({ summary: '磁盘检查' })
   @Get('disk')
   @HealthCheck()
   checkDisk(): Promise<HealthCheckResult> {

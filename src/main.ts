@@ -5,12 +5,9 @@ import * as winston from 'winston';
 import { WinstonModule } from 'nest-winston';
 import LoggerConfig from './common/configs/logger.config';
 import { AppModule } from './app.module';
-import { startApolloServer } from './datasources/appollo/apolloClient';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { AllExceptionsFilter } from './common/filters/all.exception';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
-import { connectMongoDB } from './datasources/mongodb';
-import { createUser, findAllUser } from './datasources/mongodb/service/user';
 
 // 开启swagger api
 function useSwagger(app: INestApplication) {
@@ -54,20 +51,13 @@ async function bootstrap() {
   useSwagger(app);
 
   // 服务监听
-  const port = process.env['PORT'] || 3000;
+  const port = process.env.PORT || 3000;
   await app.listen(port);
 
   // 服务地址
   const serviceUrl = (await app.getUrl()).replace('[::1]', 'localhost');
   logger.info(`Application is running at: ${serviceUrl}`);
   logger.info(`Swagger API is running at: ${serviceUrl}/api`);
-
-  // 启动apollo服务
-  await startApolloServer(logger, async () => {
-    // MongoDB 连接测试
-    // await connectMongoDB(logger);
-    // await createUser({ name: 'kim', password: '123456' });
-  });
 }
 
 // 启动服务

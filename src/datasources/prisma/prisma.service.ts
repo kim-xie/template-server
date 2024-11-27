@@ -14,18 +14,13 @@ export class PrismaService
   private readonly logger = new Logger(PrismaService.name);
   constructor() {
     super({
-      log: ['query', 'info', 'warn', 'error'], // 启用 prisma 查询、信息、警告和错误日志
-      // datasourceUrl: process.env['MYSQL_DATABASE_URL'],
-      datasources: {
-        db: {
-          url: process.env['MYSQL_DATABASE_URL'],
-        },
-      },
+      log: ['query', 'info', 'warn', 'error'],
     });
   }
+
   async onModuleInit() {
     await this.$connect(); // 连接数据库
-    this.logger.log('Connected to the database');
+    this.logger.log(`Connected to the database`);
   }
 
   async onModuleDestroy() {

@@ -3,7 +3,7 @@ import { EsBaseService } from './service/esbase';
 import { EsAggsService } from './service/esaggs';
 import { EsHistogramService } from './service/eshistogram';
 import { EsScriptService } from './service/esscript';
-import dayjs from 'src/utils/dateUtil';
+import dayjs from '@src/utils/dateUtil';
 
 /**
  * es api:

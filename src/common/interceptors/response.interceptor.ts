@@ -13,10 +13,17 @@ export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const [res] = context.getArgs();
     // 响应统一数据结构
-    return next
-      .handle()
-      .pipe(
-        map((data) => ({ data, code: res.statusCode || 0, message: 'ok' })),
-      );
+    return next.handle().pipe(
+      map((data) => {
+        if (typeof data === 'object' && Object.keys(data).includes('code')) {
+          return {
+            data: data?.data || '',
+            code: data.code,
+            message: data?.message || (+data.code === 1 ? 'ok' : 'fail'),
+          };
+        }
+        return { data, code: res.statusCode || 1, message: 'ok' };
+      }),
+    );
   }
 }

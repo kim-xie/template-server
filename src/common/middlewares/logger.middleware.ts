@@ -29,6 +29,7 @@ export class LoggerMiddleware implements NestMiddleware {
       const logFormat = `LoggerMiddleware: ${method} ${url} ${ip} Query: ${JSON.stringify(query)} Params: ${JSON.stringify(params)} Body: ${JSON.stringify(body)} Code: ${code} Spend: ${responseTime}ms`;
 
       // 根据状态码，进行日志类型区分
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       code >= 400 ? logger.error(logFormat) : logger.log(logFormat);
     });
 

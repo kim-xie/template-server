@@ -26,10 +26,17 @@ build-job: # This job runs in the build stage, which runs first.
   script:
     - cd ${CI_PROJECT_DIR}
     - node -v
-    - pnpm -v
-    - echo "start install..."
-    - pnpm install
-    - echo "install done"
+    - npm -v
+    # - echo "start install..."
+    # - npm install
+    # - echo "install done"
+    # - echo "start build..."
+    # - npm run build
+    # - echo "build done"
+    - ls -l
+  # artifacts:
+  #   paths:
+  #     - dist/
   tags:
     - 'docker'
   only:
@@ -38,13 +45,15 @@ build-job: # This job runs in the build stage, which runs first.
 deploy-job: # This job runs in the deploy stage.
   stage: deploy
   image: docker
+  # dependencies:
+  #   - build-job
   before_script:
     - docker ps
   script:
     - echo "deploy start..."
-    - docker build -t template-server .
-    - if [ $(docker ps -aq --filter name=template-server) ]; then docker rm -f template-server;fi
-    - docker run -d -p 80:80 --name template-server template-server
+    - docker build -t intranet-bff .
+    - if [ $(docker ps -aq --filter name=intranet-bff) ]; then docker rm -f intranet-bff;fi
+    - docker run -d -p 8089:80 --name intranet-bff intranet-bff
     - echo "deploy done"
   tags:
     - 'docker'
