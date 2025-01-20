@@ -3,13 +3,11 @@ import axios from 'axios';
 // 机器人KEY
 export const config = {
   // 专用测试机器人
-  feishu_kim_test: 'b3df86a3-cc34-4ef5-9485-50f2b7a8c8aa',
+  feishu_kim_test: 'xxx',
   // 飞书 - 前端资讯推送测试群
-  feishu_frontend_test: '43e1801b-b3b7-4699-bee2-2d5af82f343e',
-  // 飞书 - 大前端双周会
-  feishu_frontend: '979c99ca-e91c-4dfc-ac05-3fa915fee8a0',
+  feishu_frontend_test: 'xxx',
   // 飞书 - 前端技术交流
-  feishu_frontend_jishu: 'e7dfd89b-3fe4-4c90-8eb6-bef297a2c6cf',
+  feishu_frontend_jishu: 'xxx',
 };
 
 export function createFontTag(content, color = 'warning') {

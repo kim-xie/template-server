@@ -51,9 +51,9 @@ deploy-job: # This job runs in the deploy stage.
     - docker ps
   script:
     - echo "deploy start..."
-    - docker build -t intranet-bff .
-    - if [ $(docker ps -aq --filter name=intranet-bff) ]; then docker rm -f intranet-bff;fi
-    - docker run -d -p 8089:80 --name intranet-bff intranet-bff
+    - docker build -t template-server .
+    - if [ $(docker ps -aq --filter name=template-server) ]; then docker rm -f template-server;fi
+    - docker run -d -p 8089:80 --name template-server template-server
     - echo "deploy done"
   tags:
     - 'docker'

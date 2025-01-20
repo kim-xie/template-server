@@ -1,13 +1,12 @@
-import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { Injectable, Logger } from '@nestjs/common';
-
+import { GlobalService } from '@src/global/global.service';
 /**
  * ES 图表数据查询 histogram、date_histogram、percentile、percentile_ranks
  */
 @Injectable()
 export class EsHistogramService {
   private readonly logger = new Logger(EsHistogramService.name);
-  constructor(private readonly esService: ElasticsearchService) {}
+  constructor(private readonly esService: GlobalService) {}
 
   /**
    * 直方图
@@ -34,8 +33,8 @@ export class EsHistogramService {
         },
       },
     };
-    this.logger.log('histogram serach params: ', body);
-    return await this.esService.search(body);
+    this.logger.log('es histogram serach params: ', body);
+    return await this.esService.getEs().search(body);
   };
 
   /**
@@ -65,8 +64,8 @@ export class EsHistogramService {
         },
       },
     };
-    this.logger.log('date_histogram serach params: ', body);
-    return await this.esService.search(body);
+    this.logger.log('es date_histogram serach params: ', body);
+    return await this.esService.getEs().search(body);
   };
 
   /**
@@ -92,7 +91,7 @@ export class EsHistogramService {
         },
       },
     };
-    this.logger.log('percentile serach params: ', body);
-    return await this.esService.search(body);
+    this.logger.log('es percentile serach params: ', body);
+    return await this.esService.getEs().search(body);
   };
 }

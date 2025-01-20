@@ -1,7 +1,7 @@
 # 使用内部源
 FROM harbor.nykjsrv.com/library/node:18.17-slim
 
-WORKDIR /app/intranet-bff
+WORKDIR /app/template-server
 
 COPY . .
 

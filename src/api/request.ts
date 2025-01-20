@@ -1,7 +1,6 @@
 // import { createInstance, webRequestAdapter } from '@ny/luban-ladder';
 import axios from 'axios';
 
-// 在线文档：https://docs.91160.com/luban/luban-ladder/docs/started/usage.html
 // const instance: any = createInstance(webRequestAdapter, {
 //   beforeRequest(config) {
 //     // 请求拦截器

@@ -1,7 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { GlobalService } from '@src/global/global.service';
+import { connectPrisma } from '@src/datasources/prisma';
 import { connectMongoDB } from '@src/datasources/mongodb';
+import { connectEs } from '@src/datasources/es';
+import {
+  APOLLO_HOST,
+  APOLLO_CLUSTERNAME,
+  APOLLO_NAMESPACELIST,
+  APOLLO_APPID,
+} from '@src/common/constants';
 import { ApolloClient } from './apollo';
 // import { createUser } from '@src/datasources/mongodb/service/user';
 @Injectable()
@@ -56,39 +63,44 @@ export class ApolloConfigService {
     return MONGODB_CONNECTION_STRING;
   }
 
+  // 获取es的连接信息
+  async getESConnection() {
+    const { es } = await this.getApolloConfigs();
+    if (!es?.host) {
+      return;
+    }
+    return es?.host;
+  }
+
   // 启动apollo Client
   startApolloServer() {
     try {
       // apollo客户端实例  host配置：192.168.10.1 apollo-config.91160.com（开发、测试环境）
+      if (this.apolloClient) {
+        return;
+      }
       this.apolloClient = new ApolloClient({
-        metaServerUrl: 'http://apollo-config.91160.com',
-        clusterName: 'default',
-        namespaceList: ['application', 'security'],
-        appId: 'intranet-bff',
+        metaServerUrl: APOLLO_HOST,
+        clusterName: APOLLO_CLUSTERNAME,
+        namespaceList: APOLLO_NAMESPACELIST,
+        appId: APOLLO_APPID,
       });
       // 初始化配置
       this.apolloClient.init().then(async () => {
         this.configs = this.apolloClient.getConfigs();
         // 获取所有配置
         this.logger.log(`apolloClient init done`);
+        // prisma 连接信息
         const datasourceUrl = await this.getPrismaConnection();
         if (!datasourceUrl) {
           return;
         }
-        try {
-          // mysql数据库连接
-          const prisma = new PrismaClient({
-            datasourceUrl,
-            log: ['query', 'info', 'warn', 'error'],
-          });
-          this.logger.log(`Prisma connected to the database: ${datasourceUrl}`);
+        // mysql数据库连接
+        connectPrisma(datasourceUrl, this.logger, (prisma) => {
           this.globalService.setPrisma(prisma);
-        } catch (err) {
-          this.logger.error(
-            `Prisma connected to the database is error: ${err}`,
-          );
-        }
+        });
 
+        // monogo 连接信息
         const monogodbUrl = await this.getMongodbConnection();
         if (!monogodbUrl) {
           return;
@@ -96,6 +108,14 @@ export class ApolloConfigService {
         // monogo数据库连接
         await connectMongoDB(monogodbUrl, this.logger);
         // await createUser({ name: 'kim', password: '123456' });
+
+        const esNodes = await this.getESConnection();
+        if (!esNodes) {
+          return;
+        }
+        await connectEs(esNodes, this.logger, (es) => {
+          this.globalService.setEs(es);
+        });
       });
 
       // 监控配置变更

@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { ImageModule } from './image/image.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { ApolloClientModule } from './datasources/appollo/apolloClient.module';
-import { GlobalModule } from '@src/global/global.module';
-import { UserModule } from '@src/user/user.module';
+import { GlobalModule } from './global/global.module';
+import { UserModule } from './user/user.module';
+import { EsModule } from './datasources/es/es.module';
 
 @Module({
   imports: [
+    // 静态资源服务
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/static',
@@ -20,6 +22,7 @@ import { UserModule } from '@src/user/user.module';
     HealthModule,
     ImageModule,
     UserModule,
+    EsModule,
   ], // 依赖注入
   controllers: [AppController],
   providers: [AppService],

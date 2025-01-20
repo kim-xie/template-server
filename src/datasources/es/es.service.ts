@@ -183,7 +183,7 @@ export class EsService {
       ...rest
     } = params;
 
-    console.log('------search params------', params);
+    this.logger.log('------es search params------' + params);
 
     let date: string | string[] = endTime;
     let index = [];
@@ -248,7 +248,7 @@ export class EsService {
       }
     }
 
-    this.logger.log('search index: ' + index);
+    this.logger.log('es search index: ' + index);
 
     if (!index) {
       this.logger.error('index can not be empty index = ' + index);
@@ -278,7 +278,7 @@ export class EsService {
       pageSize: size,
     };
 
-    this.logger.log('search result: ' + JSON.stringify(resultObj));
+    this.logger.log('es search result: ' + JSON.stringify(resultObj));
 
     return resultObj;
   }
