@@ -3,14 +3,14 @@ import { Client } from '@elastic/elasticsearch';
 export const connectEs = async (nodes, logger, cb) => {
   try {
     if (!nodes) {
-      logger.error('not found es nodes');
+      logger.error('not found ES nodes');
       return;
     }
     // 创建 Elasticsearch 客户端
     const esClient = await new Client({ nodes: nodes?.split(',') });
-    logger.log(`connected to the es: ${nodes}`);
+    logger.log(`Connected to the ES: ${nodes}`);
     cb?.(esClient);
   } catch (err) {
-    logger.error(`connected to the es is error: ${err}`);
+    logger.error(`Connected to the ES is error: ${err}`);
   }
 };
