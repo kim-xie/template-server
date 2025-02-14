@@ -9,6 +9,7 @@ import { ApolloClientModule } from './datasources/appollo/apolloClient.module';
 import { GlobalModule } from './global/global.module';
 import { UserModule } from './user/user.module';
 import { EsModule } from './datasources/es/es.module';
+import { SpiderModule } from './spider/spider.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { EsModule } from './datasources/es/es.module';
     ImageModule,
     UserModule,
     EsModule,
+    SpiderModule,
   ], // 依赖注入
   controllers: [AppController],
   providers: [AppService],
