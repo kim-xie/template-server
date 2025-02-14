@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import type { INestApplication } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as winston from 'winston';
 import { WinstonModule } from 'nest-winston';
@@ -54,10 +55,14 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   await app.listen(port);
 
+  // 读取配置文件
+  const configService = app.get(ConfigService);
+
   // 服务地址
   const serviceUrl = (await app.getUrl()).replace('[::1]', 'localhost');
   logger.info(`Application is running at: ${serviceUrl}`);
   logger.info(`Swagger API is running at: ${serviceUrl}/api`);
+  logger.info(`This ENV is: ${configService.get('NODE_ENV')}`);
 }
 
 // 启动服务
