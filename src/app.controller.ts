@@ -17,4 +17,14 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get('esDemo')
+  @ApiOperation({ summary: 'esDemo' })
+  esDemo(): Promise<string> {
+    return this.appService.esDemo();
+  }
+  @Get('kafkaDemo')
+  @ApiOperation({ summary: 'kafkaDemo' })
+  kafkaDemo(): Promise<string> {
+    return this.appService.kafkaDemo();
+  }
 }

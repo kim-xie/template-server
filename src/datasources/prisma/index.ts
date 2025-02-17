@@ -7,9 +7,9 @@ export const connectPrisma = (datasourceUrl, logger, cb) => {
       datasourceUrl,
       log: ['query', 'info', 'warn', 'error'],
     });
-    logger.log(`Prisma connected to the database: ${datasourceUrl}`);
+    logger.log(`Prisma Connected to Database: ${datasourceUrl}`);
     cb?.(prisma);
   } catch (err) {
-    logger.error(`Prisma connected to the database is error: ${err}`);
+    logger.error(`Prisma Connected to Database is error: ${err}`);
   }
 };

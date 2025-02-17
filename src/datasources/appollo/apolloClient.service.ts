@@ -3,6 +3,7 @@ import { GlobalService } from '@src/global/global.service';
 import { connectPrisma } from '@src/datasources/prisma';
 import { connectMongoDB } from '@src/datasources/mongodb';
 import { connectEs } from '@src/datasources/es';
+import { connectKafka } from '@src/datasources/kafka';
 import {
   APOLLO_HOST,
   APOLLO_CLUSTERNAME,
@@ -24,6 +25,7 @@ export class ApolloConfigService {
     const configs =
       this.configs || (await this.apolloClient.getConfigs()) || {};
     let config = {
+      kafka: { clientId: '', brokers: '' },
       es: { host: '' },
       mongodb: { username: '', pwd: '', host: '', dbname: '' },
       mysql: { username: '', pwd: '', host: '', dbname: '', robot: {} },
@@ -72,6 +74,15 @@ export class ApolloConfigService {
     return es?.host;
   }
 
+  // 获取kafka的连接信息
+  async getKafkaConnection() {
+    const { kafka } = await this.getApolloConfigs();
+    if (!kafka?.clientId || !kafka?.brokers) {
+      return;
+    }
+    return kafka;
+  }
+
   // 启动apollo Client
   startApolloServer() {
     try {
@@ -89,7 +100,7 @@ export class ApolloConfigService {
       this.apolloClient.init().then(async () => {
         this.configs = this.apolloClient.getConfigs();
         // 获取所有配置
-        this.logger.log(`apolloClient init done`);
+        this.logger.log(`ApolloClient init done`);
         // prisma 连接信息
         const datasourceUrl = await this.getPrismaConnection();
         if (!datasourceUrl) {
@@ -109,12 +120,22 @@ export class ApolloConfigService {
         await connectMongoDB(monogodbUrl, this.logger);
         // await createUser({ name: 'kim', password: '123456' });
 
+        // es
         const esNodes = await this.getESConnection();
         if (!esNodes) {
           return;
         }
         await connectEs(esNodes, this.logger, (es) => {
           this.globalService.setEs(es);
+        });
+
+        // kafka
+        const kafkaInfo = await this.getKafkaConnection();
+        if (!kafkaInfo) {
+          return;
+        }
+        await connectKafka(kafkaInfo, this.logger, (kafka, groupId) => {
+          this.globalService.setKafka(kafka, groupId);
         });
       });
 
@@ -124,7 +145,7 @@ export class ApolloConfigService {
         // this.logger.log(`apolloClient config changed done`);
       });
     } catch (err) {
-      this.logger.log(`apolloClient connect error: ${err}`);
+      this.logger.log(`ApolloClient connect error: ${err}`);
     }
   }
 }

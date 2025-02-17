@@ -29,8 +29,13 @@
           "username": "robot",
           "password": "wjsWWEkqid71q_la3zZao"
         }
+      },
+      "kafka": {
+        "clientId": "fed-monitor-kafka",
+        "brokers": "10.1.2.106:9092, 10.1.2.107:9092, 10.1.2.108:9092",
+        "groupId": "fed-monitor-kafka"
       }
     },
-    "releaseKey": "20241127135119-f0d29fa53817bfe4"
+    "releaseKey": "20250217173137-f0d28d95532c463c"
   }
 }

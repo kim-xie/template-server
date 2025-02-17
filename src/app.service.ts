@@ -1,18 +1,60 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { EsService } from '@src/datasources/es/es.service';
 import * as dayjs from 'dayjs';
+import { SubscribeTo } from '@src/datasources/kafka/kafka.decorator';
+import { KafkaService } from '@src/datasources/kafka/kafka.service';
+
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
-  constructor(private readonly esService: EsService) {}
-  async getHello(): Promise<string> {
+  constructor(
+    private readonly kafka: KafkaService,
+    private readonly esService: EsService,
+  ) {}
+  getHello() {
     this.logger.log('Nest application successfully started');
+    return 'Hello World!';
+  }
+
+  async esDemo() {
     // ES Demo
     await this.createInterfaceMock();
     setTimeout(() => {
       this.searchESServer(dayjs());
     }, 1000);
-    return 'Hello World!';
+    return 'ok';
+  }
+
+  kafkaDemo() {
+    // kafka Demo
+    return this.sendReport({ ip: '127.0.0.1' });
+  }
+
+  /**
+   * kafka 生产者
+   * @param createReportDto
+   * @returns
+   */
+  async sendReport(createReportDto): Promise<any> {
+    const payload = {
+      messageId: '' + new Date().valueOf(),
+      body: createReportDto,
+      messageType: 'Report',
+      topicName: 'tracking.report',
+    };
+    const value = await this.kafka.sendMessage('tracking.report', payload);
+    this.logger.log(`kafka response: ${JSON.stringify(value)}`);
+    return createReportDto;
+  }
+  /**
+   * Kafka消费者
+   * @param payload
+   */
+  @SubscribeTo('tracking.report')
+  reportSubscriber(payload) {
+    this.logger.log(
+      `[KAKFA-CONSUMER] Print message after receiving: ${payload}`,
+    );
   }
 
   // mock ES 接口告警数据

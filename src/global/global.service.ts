@@ -4,6 +4,8 @@ import { Injectable } from '@nestjs/common';
 export class GlobalService {
   private prisma;
   private es;
+  private kafka;
+  private kafkaGroupId;
 
   getPrisma() {
     return this.prisma;
@@ -19,5 +21,14 @@ export class GlobalService {
 
   setEs(es) {
     this.es = es;
+  }
+
+  setKafka(kafka, groupId) {
+    this.kafka = kafka;
+    this.kafkaGroupId = groupId;
+  }
+
+  getKafka() {
+    return { kafka: this.kafka, groupId: this.kafkaGroupId };
   }
 }
