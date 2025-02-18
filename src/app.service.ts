@@ -43,7 +43,7 @@ export class AppService {
       topicName: 'tracking.report',
     };
     const value = await this.kafka.sendMessage('tracking.report', payload);
-    this.logger.log(`kafka response: ${JSON.stringify(value)}`);
+    console.log(`[KAKFA-PRODUCER] response: ${JSON.stringify(value)}`);
     return createReportDto;
   }
   /**
@@ -52,9 +52,7 @@ export class AppService {
    */
   @SubscribeTo('tracking.report')
   reportSubscriber(payload) {
-    this.logger.log(
-      `[KAKFA-CONSUMER] Print message after receiving: ${payload}`,
-    );
+    console.log(`[KAKFA-CONSUMER] Print message after receiving: ${payload}`);
   }
 
   // mock ES 接口告警数据
