@@ -104,14 +104,12 @@ export class KafkaService {
     if (!this.kafka) {
       await this.generateKafkaClient();
     }
-    await this.producer?.connect();
     const metadata = await this.producer
       ?.send({
         topic: kafkaTopic,
         messages: [{ value: JSON.stringify(kafkaMessage) }],
       })
       .catch((e) => console.error(e.message, e));
-    await this.producer?.disconnect();
     return metadata?.[0];
   }
 }
