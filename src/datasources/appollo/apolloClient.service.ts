@@ -29,6 +29,7 @@ export class ApolloConfigService {
       es: { host: '' },
       mongodb: { username: '', pwd: '', host: '', dbname: '' },
       mysql: { username: '', pwd: '', host: '', dbname: '', robot: {} },
+      redis: { host: '', dbname: '', pwd: '', sentinels: '' },
     };
     // 解析配置
     Object.keys(configs)?.forEach((key) => {
@@ -81,6 +82,16 @@ export class ApolloConfigService {
       return;
     }
     return kafka;
+  }
+
+  // 获取redis的连接信息
+  async getRedisConnection() {
+    const { redis = {} } = await this.getApolloConfigs();
+    const { host, dbname, pwd, sentinels } = redis;
+    if (!host || !sentinels) {
+      return;
+    }
+    return redis;
   }
 
   // 启动apollo Client
