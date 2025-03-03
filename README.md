@@ -2,7 +2,7 @@
 
 ## 架构图
 
-[架构](whiteboard_exported_image.png)
+![架构](whiteboard_exported_image.png)
 
 ## 技术栈
 
@@ -15,7 +15,7 @@ nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elast
 ```bash
 1、jwt 登录鉴权
 2、swagger api 在线文档
-3、appollo appollo统一配置管理
+3、appollo (appollo统一配置管理)[https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D]
 4、多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
 5、基建：代码规范、风格、文件命名、提交规范、CICD、docker、拦截器、过滤器、中间件，统一出入参
 6、日志跟踪（winston）
@@ -114,7 +114,10 @@ pnpm run db:seed
 MySQL、Mongodb、ES、Kafka、Redis
 
 客户端：
+
+```
 navicat(MySQL、Mongodb)
-kibana(es)
-Offset Explorer(kafka)
-RedisDesktopManager(redis)
+kibana(ES)
+Offset Explorer(Kafka)
+RedisDesktopManager(Redis)
+```
