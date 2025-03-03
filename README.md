@@ -1,12 +1,12 @@
-# 服务端开箱即用的脚手架
+## nestjs服务端脚手架开箱即用
 
-## 架构图
+## 架构
 
 ![架构](whiteboard_exported_image.png)
 
 ## 技术栈
 
-nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elasticsearch + kafka + redis
+nestjs + typescript + pnpm + 3、apollo+ docker + winston + prisma + mongodb + mysql + elasticsearch + kafka + redis
 
 版本管理工具：volta
 
@@ -15,9 +15,9 @@ nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elast
 ```bash
 1、jwt 登录鉴权
 2、swagger api 在线文档
-3、appollo (appollo统一配置管理)[https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D]
+3、apollo 统一配置管理
 4、多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
-5、基建：代码规范、风格、文件命名、提交规范、CICD、docker、拦截器、过滤器、中间件，统一出入参
+5、基建：代码规范、风格、文件命名、提交规范、cicd、docker、拦截器、过滤器、中间件，统一出入参
 6、日志跟踪（winston）
 7、gitlab cicd：.gitlab-ci.yml
 8、容器化部署：Dockerfile
@@ -78,6 +78,7 @@ pnpm install swagger-ui-express @nestjs/swagger
 ## Apollo
 
 **开源配置管理中心，用于统一管理配置信息，并支持实时更新配置**
+(appollo统一配置管理)[https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D]
 
 **具体使用查看datasources/appollo**
 
