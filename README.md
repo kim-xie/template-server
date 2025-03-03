@@ -14,8 +14,8 @@ nestjs + typescript + pnpm + 3、apollo+ docker + winston + prisma + mongodb + m
 
 ```bash
 1、jwt 登录鉴权
-2、swagger api 在线文档
-3、apollo 统一配置管理
+2、swagger api在线文档
+3、apollo 配置管理中心
 4、多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
 5、基建：代码规范、风格、文件命名、提交规范、cicd、docker、拦截器、过滤器、中间件，统一出入参
 6、日志跟踪（winston）
@@ -23,6 +23,8 @@ nestjs + typescript + pnpm + 3、apollo+ docker + winston + prisma + mongodb + m
 8、容器化部署：Dockerfile
 9、支持飞书告警
 10、内置图片合成功能
+11、支持静态资源服务器
+12、支持多环境区分
 ```
 
 ## 项目启动
