@@ -78,7 +78,7 @@ pnpm install swagger-ui-express @nestjs/swagger
 ## Apollo
 
 **开源配置管理中心，用于统一管理配置信息，并支持实时更新配置**
-(appollo统一配置管理)[https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D]
+[apollo统一配置管理中心](https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D)
 
 **具体使用查看datasources/appollo**
 
@@ -116,9 +116,10 @@ MySQL、Mongodb、ES、Kafka、Redis
 
 客户端：
 
-```
 navicat(MySQL、Mongodb)
+
 kibana(ES)
+
 Offset Explorer(Kafka)
+
 RedisDesktopManager(Redis)
-```
