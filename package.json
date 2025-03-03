@@ -1,9 +1,10 @@
 {
-  "name": "intranet-bff",
+  "name": "template-server",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "nestjs starter",
+  "author": "kim",
+  "homepage": "https://github.com/kim-xie/template-server",
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "build": "cross-env NODE_ENV=production nest build --webpack",

@@ -1,4 +1,4 @@
-## nestjs服务端脚手架开箱即用
+## 开箱即用的nest服务端应用脚手架
 
 ## 架构
 
@@ -6,7 +6,7 @@
 
 ## 技术栈
 
-nestjs + typescript + pnpm + 3、apollo+ docker + winston + prisma + mongodb + mysql + elasticsearch + kafka + redis
+nestjs + typescript + pnpm + apollo + docker + winston + prisma + mongodb + mysql + elasticsearch + kafka + redis
 
 版本管理工具：volta
 
@@ -21,10 +21,11 @@ nestjs + typescript + pnpm + 3、apollo+ docker + winston + prisma + mongodb + m
 6、日志跟踪（winston）
 7、gitlab cicd：.gitlab-ci.yml
 8、容器化部署：Dockerfile
-9、支持飞书告警
-10、内置图片合成功能
-11、支持静态资源服务器
-12、支持多环境区分
+9、内置爬虫功能
+10、内置飞书告警
+11、内置图片合成功能
+12、支持静态资源服务器
+13、支持多环境区分
 ```
 
 ## 项目启动
