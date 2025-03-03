@@ -1,11 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { GlobalService } from '@src/global/global.service';
 
 @Injectable()
 export class RedisService {
   private readonly logger = new Logger(RedisService.name);
-  constructor() {}
+  constructor(private readonly globalService: GlobalService) {}
 
   getRedisClient() {
-    return '';
+    return this.globalService.getRedis();
   }
 }

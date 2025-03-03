@@ -6,6 +6,7 @@ export class GlobalService {
   private es;
   private kafka;
   private kafkaGroupId;
+  private redis;
 
   getPrisma() {
     return this.prisma;
@@ -30,5 +31,13 @@ export class GlobalService {
 
   getKafka() {
     return { kafka: this.kafka, groupId: this.kafkaGroupId };
+  }
+
+  setRedis(redis) {
+    this.redis = redis;
+  }
+
+  getRedis() {
+    return this.redis;
   }
 }

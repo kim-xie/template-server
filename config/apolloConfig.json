@@ -34,8 +34,14 @@
         "clientId": "fed-monitor-kafka",
         "brokers": "10.1.2.106:9092, 10.1.2.107:9092, 10.1.2.108:9092",
         "groupId": "fed-monitor-kafka"
+      },
+      "redis": {
+        "host": "10.1.10.101:26379,10.1.10.102:26379,10.1.10.103:26379",
+        "dbname": "0",
+        "pwd": "M0xH5kL01SPH",
+        "sentinels": "Sentinel4OL"
       }
     },
-    "releaseKey": "20250217173137-f0d28d95532c463c"
+    "releaseKey": "20250303112643-f0d28d95532c464c"
   }
 }

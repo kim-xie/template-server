@@ -16,21 +16,28 @@ export const connectRedis = async (nodes, logger, cb) => {
   //     {
   //       redisOptions: {
   //         password: nodes.pwd,
-  //         db: nodes.dbname
   //       },
   //     },
   //   );
 
+  const { host } = nodes;
+  const sentinels = host?.split(',')?.map((item) => {
+    const [host, port] = item.split(':');
+    return {
+      host,
+      port,
+    };
+  });
+
   // 哨兵模式示例
   const redisClient = new Redis({
-    sentinels: [{ host: 'sentinel-host', port: 26379 }],
+    sentinels: sentinels,
     name: nodes.sentinels, // 需与哨兵配置的主节点名称一致
-    sentinelPassword: nodes.pwd, // 哨兵节点密码
     password: nodes.pwd, // 主节点密码
-    db: nodes.dbname,
+    db: nodes.dbname, // db
   });
   redisClient.on('connect', () => {
-    logger.log(`Connected to Redis: ${nodes}`);
+    logger.log(`Connected to Redis: ${JSON.stringify(sentinels)}`);
     cb?.(redisClient);
   });
 

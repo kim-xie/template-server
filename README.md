@@ -1,8 +1,12 @@
 # 服务端开箱即用的脚手架
 
+## 架构图
+
+[架构](whiteboard_exported_image.png)
+
 ## 技术栈
 
-nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elasticsearch
+nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elasticsearch + kafka + redis
 
 版本管理工具：volta
 
@@ -11,12 +15,14 @@ nestjs + typescript + pnpm + prisma + docker + winston + mongodb + mysql + elast
 ```bash
 1、jwt 登录鉴权
 2、swagger api 在线文档
-3、appollo appollo配置对接
-4、数据库连接（MySQL、MongoDB、ES、Kafka）持久层框架ORM（prisma）
+3、appollo appollo统一配置管理
+4、多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
 5、基建：代码规范、风格、文件命名、提交规范、CICD、docker、拦截器、过滤器、中间件，统一出入参
 6、日志跟踪（winston）
 7、gitlab cicd：.gitlab-ci.yml
 8、容器化部署：Dockerfile
+9、支持飞书告警
+10、内置图片合成功能
 ```
 
 ## 项目启动
@@ -71,6 +77,8 @@ pnpm install swagger-ui-express @nestjs/swagger
 
 ## Apollo
 
+**开源配置管理中心，用于统一管理配置信息，并支持实时更新配置**
+
 **具体使用查看datasources/appollo**
 
 ## jwt
@@ -101,6 +109,12 @@ pnpm run db:seed
 
 ```
 
-## 数据库
+## 数据库支持
 
-MySQL、Mongodb、ES、Kafka
+MySQL、Mongodb、ES、Kafka、Redis
+
+客户端：
+navicat(MySQL、Mongodb)
+kibana(es)
+Offset Explorer(kafka)
+RedisDesktopManager(redis)

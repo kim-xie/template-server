@@ -4,6 +4,7 @@ import { connectPrisma } from '@src/datasources/prisma';
 import { connectMongoDB } from '@src/datasources/mongodb';
 import { connectEs } from '@src/datasources/es';
 import { connectKafka } from '@src/datasources/kafka';
+import { connectRedis } from '@src/datasources/rediis';
 import {
   APOLLO_HOST,
   APOLLO_CLUSTERNAME,
@@ -87,8 +88,7 @@ export class ApolloConfigService {
   // 获取redis的连接信息
   async getRedisConnection() {
     const { redis = {} } = await this.getApolloConfigs();
-    const { host, dbname, pwd, sentinels } = redis;
-    if (!host || !sentinels) {
+    if (!redis?.host || !redis?.sentinels) {
       return;
     }
     return redis;
@@ -147,6 +147,15 @@ export class ApolloConfigService {
         }
         await connectKafka(kafkaInfo, this.logger, (kafka, groupId) => {
           this.globalService.setKafka(kafka, groupId);
+        });
+
+        // redis
+        const redisInfo = await this.getRedisConnection();
+        if (!redisInfo) {
+          return;
+        }
+        await connectRedis(redisInfo, this.logger, (redis) => {
+          this.globalService.setRedis(redis);
         });
       });
 
