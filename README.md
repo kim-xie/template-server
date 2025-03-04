@@ -16,10 +16,10 @@ nestjs + typescript + pnpm + apollo + docker + winston + prisma + mongodb + mysq
 - ✅ swagger api在线文档
 - ✅ apollo 配置管理中心
 - ✅ 多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
-- ✅ 基建完善（代码规范、代码风格、文件命名、提交规范、cicd、docker、拦截器、过滤器、中间件、守卫、统一出入参）
+- ✅ 基建完善（代码规范、代码风格、文件命名、提交规范、cicd、拦截器、过滤器、中间件、守卫、统一出参）
 - ✅ 日志跟踪（winston）
 - ✅ gitlab cicd
-- ✅ 支持容器化部署
+- ✅ 支持容器化部署（docker）
 - ✅ 内置爬虫功能
 - ✅ 内置飞书告警
 - ✅ 内置图片合成功能
@@ -82,6 +82,7 @@ pnpm install swagger-ui-express @nestjs/swagger
 ## Apollo
 
 **开源配置管理中心，用于统一管理配置信息，并支持实时更新配置**
+
 [apollo统一配置管理中心](https://github.com/apolloconfig/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D)
 
 **具体使用查看datasources/appollo**
@@ -95,7 +96,8 @@ pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
 pnpm install @nestjs/prisma prisma @prisma/client
 
 [prisma官网](https://www.prisma.io/docs/getting-started)
-Prisma目前支持的数据库有：PostgreSQL、MySQL、SQL Server、SQLite、MongoDB、 CockroachDB、PlanetScale、MariaDB
+
+Prisma目前支持的数据库有：PostgreSQL、MySQL、SQLServer、SQLite、MongoDB、CockroachDB、PlanetScale、MariaDB
 
 **Monogodb采用原生的连接方式，不使用prisma。具体使用查看datasources/mongodb**
 
