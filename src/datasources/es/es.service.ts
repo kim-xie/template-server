@@ -12,7 +12,7 @@ import dayjs from '@src/utils/dateUtil';
 @Injectable()
 export class EsService {
   private readonly logger = new Logger(EsService.name);
-  private readonly esPrefix = 'fed-monitor';
+  private readonly esPrefix = 'nest-es';
   constructor(
     private readonly esBaseService: EsBaseService,
     private readonly esAggsService: EsAggsService,
@@ -22,7 +22,7 @@ export class EsService {
 
   // 获取es服务
   getEsClient() {
-    return this.esBaseService;
+    return this.esBaseService.getEsClient();
   }
 
   // 添加

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Consumer, Kafka, Producer, Partitioners } from 'kafkajs';
 import {
   SUBSCRIBER_FIXED_FN_REF_MAP,
@@ -6,7 +6,6 @@ import {
   SUBSCRIBER_OBJ_REF_MAP,
 } from './kafka.decorator';
 import { KafkaPayload } from './kafka.message';
-import { GlobalService } from '@src/global/global.service';
 
 @Injectable()
 export class KafkaService {
@@ -30,15 +29,15 @@ export class KafkaService {
   //   });
   // }
 
-  constructor(private readonly globalService: GlobalService) {}
+  constructor(@Inject('KafkaClient') private kafkaClient: Kafka) {}
 
   async generateKafkaClient() {
-    const { kafka, groupId } = this.globalService.getKafka();
-    this.kafka = kafka;
-    this.producer = kafka?.producer({
+    const groupId = process.env.KafkaGroupId;
+    this.kafka = this.kafkaClient;
+    this.producer = this.kafka?.producer({
       createPartitioner: Partitioners.LegacyPartitioner,
     });
-    this.consumer = kafka?.consumer({
+    this.consumer = this.kafka?.consumer({
       groupId: groupId + this.consumerSuffix,
     });
     this.fixedConsumer = this.kafka?.consumer({

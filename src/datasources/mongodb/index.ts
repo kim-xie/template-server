@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
+import { Logger } from '@nestjs/common';
+const connectLogger = new Logger('connectMongoDB');
 
 // 建立连接
-export function connectMongoDB(connectUrl, logger) {
+export async function connectMongoDB(connectUrl, logger = connectLogger) {
   let MONGODB_CONNECTSTRING = connectUrl;
   if (!MONGODB_CONNECTSTRING) {
     const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DBNAME } =
@@ -11,7 +13,7 @@ export function connectMongoDB(connectUrl, logger) {
   if (MONGODB_CONNECTSTRING) {
     process.env['MONGODB_DATABASE_URL'] = MONGODB_CONNECTSTRING;
     // Mongodb v3.2.22 mongoose v5.5
-    mongoose
+    const mongodb = await mongoose
       .connect(MONGODB_CONNECTSTRING, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -22,5 +24,6 @@ export function connectMongoDB(connectUrl, logger) {
         logger.log(`Connected to MongoDB Cluster: ${MONGODB_CONNECTSTRING}`),
       )
       .catch((err) => logger.error(`MongoDB Connection Error: ${err}`));
+    return mongodb;
   }
 }

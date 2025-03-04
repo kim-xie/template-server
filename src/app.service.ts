@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EsService } from '@src/datasources/es/es.service';
 import * as dayjs from 'dayjs';
+import { EsService } from '@src/datasources/es/es.service';
 import { SubscribeTo } from '@src/datasources/kafka/kafka.decorator';
 import { KafkaService } from '@src/datasources/kafka/kafka.service';
+import { RedisService } from '@src/datasources/redis/redis.service';
 
 @Injectable()
 export class AppService {
@@ -10,10 +11,16 @@ export class AppService {
   constructor(
     private readonly kafka: KafkaService,
     private readonly esService: EsService,
+    private readonly redis: RedisService,
   ) {}
   getHello() {
     this.logger.log('Nest application successfully started');
     return 'Hello World!';
+  }
+
+  async redisDemo() {
+    await this.redis.redisSetDemo();
+    return this.redis.redisGetDemo() || 'ok';
   }
 
   async esDemo() {
@@ -85,7 +92,7 @@ export class AppService {
     if (!kql) return;
     try {
       this.logger.log(`es search kql: ${JSON.stringify(kql)}`);
-      const response = await this.esService.search(kql);
+      const response: any = await this.esService.search(kql);
       this.logger.log(`es search response: ${JSON.stringify(response)}`);
       return {
         data: response?.body?.hits?.hits,

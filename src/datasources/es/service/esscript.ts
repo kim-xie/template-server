@@ -1,12 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { GlobalService } from '@src/global/global.service';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Client } from '@elastic/elasticsearch';
 /**
  * ES 脚本查询 ctx(执行上下文)
  */
 @Injectable()
 export class EsScriptService {
   private readonly logger = new Logger(EsScriptService.name);
-  constructor(private readonly esService: GlobalService) {}
+  constructor(@Inject('ESClient') private readonly es: Client) {}
 
   /**
    * es 自定义脚本
@@ -28,7 +28,7 @@ export class EsScriptService {
       },
       ...esQuerys,
     };
-    this.logger.log('es script serach params: ', body);
-    return await this.esService.getEs().search(body);
+    this.logger.log(`es script serach params: ${body}`);
+    return await this.es.search(body);
   };
 }

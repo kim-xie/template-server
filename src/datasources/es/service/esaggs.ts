@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { GlobalService } from '@src/global/global.service';
+import { Injectable, Logger, Inject } from '@nestjs/common';
+import { Client } from '@elastic/elasticsearch';
 
 /**
  * ES 集合查询
@@ -10,7 +10,7 @@ import { GlobalService } from '@src/global/global.service';
 @Injectable()
 export class EsAggsService {
   private readonly logger = new Logger(EsAggsService.name);
-  constructor(private readonly esService: GlobalService) {}
+  constructor(@Inject('ESClient') private readonly es: Client) {}
 
   /**
    * 分桶聚合操作
@@ -39,8 +39,8 @@ export class EsAggsService {
         },
       },
     };
-    this.logger.log('es bucket serach params: ', body);
-    return await this.esService.getEs().search(body);
+    this.logger.log(`es bucket serach params: ${body}`);
+    return await this.es.search(body);
   };
 
   /**
@@ -71,8 +71,8 @@ export class EsAggsService {
         },
       },
     };
-    this.logger.log('es metrics serach params: ', body);
-    return await this.esService.getEs().search(body);
+    this.logger.log(`es metrics serach params: ${body}`);
+    return await this.es.search(body);
   };
 
   /**
@@ -117,7 +117,7 @@ export class EsAggsService {
         },
       },
     };
-    this.logger.log('es pipeline serach params: ', body);
-    return await this.esService.getEs().search(body);
+    this.logger.log(`es pipeline serach params: ${body}`);
+    return await this.es.search(body);
   };
 }

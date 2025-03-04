@@ -6,12 +6,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { ImageModule } from './image/image.module';
-import { ApolloClientModule } from './datasources/appollo/apolloClient.module';
+import { ApolloConfigModule } from './datasources/appollo/apolloClient.module';
 import { GlobalModule } from './global/global.module';
 import { UserModule } from './user/user.module';
 import { EsModule } from './datasources/es/es.module';
 import { SpiderModule } from './spider/spider.module';
 import { KafkaModule } from './datasources/kafka/kafka.module';
+import { PrismaModule } from './datasources/prisma/prisma.module';
+import { RedisModule } from './datasources/redis/redis.module';
+import { MongoDBModule } from './datasources/mongodb/mongodb.module';
 
 @Module({
   imports: [
@@ -24,18 +27,16 @@ import { KafkaModule } from './datasources/kafka/kafka.module';
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/static',
     }),
-    // KafkaModule.register({
-    //   clientId: 'fed-monitor-kafka',
-    //   brokers: ['10.1.2.106:9092', '10.1.2.107:9092', '10.1.2.108:9092'],
-    //   groupId: 'fed-monitor-kafka',
-    // }),
     GlobalModule,
-    ApolloClientModule,
+    ApolloConfigModule,
+    PrismaModule,
     HealthModule,
     ImageModule,
     UserModule,
+    MongoDBModule,
     EsModule,
     KafkaModule,
+    RedisModule,
     SpiderModule,
   ], // 依赖注入
   controllers: [AppController],

@@ -14,7 +14,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 function useSwagger(app: INestApplication) {
   const options = new DocumentBuilder()
     .setTitle('Swagger API')
-    .setDescription('The Swagger API description')
+    .setDescription('The Swagger API Description')
     .setVersion('1.0')
     .addTag('Swagger')
     .build();
@@ -36,11 +36,11 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // 全局日志中间件
-  app.use(new LoggerMiddleware().use);
-
   // 服务统一前缀（适用于统一网关服务）
   // app.setGlobalPrefix('api')
+
+  // 全局日志中间件
+  app.use(new LoggerMiddleware().use);
 
   // 全局异常过滤器
   app.useGlobalFilters(new AllExceptionsFilter());

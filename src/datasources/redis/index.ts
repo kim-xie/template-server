@@ -1,8 +1,14 @@
 import Redis from 'ioredis';
+import { Logger } from '@nestjs/common';
+const connectLogger = new Logger('connectRedis');
 // 动态连接
-export const connectRedis = async (nodes, logger, cb) => {
+export const connectRedis = async (
+  nodes,
+  logger = connectLogger,
+  cb = null,
+) => {
   if (!nodes) {
-    logger.error('not found Redis nodes');
+    logger.error('Not Found Redis Nodes');
     return;
   }
   // Connect to 127.0.0.1:6380, db 4, using password "authpassword"
@@ -20,7 +26,7 @@ export const connectRedis = async (nodes, logger, cb) => {
   //     },
   //   );
 
-  const { host } = nodes;
+  const { host } = nodes || {};
   const sentinels = host?.split(',')?.map((item) => {
     const [host, port] = item.split(':');
     return {
@@ -30,7 +36,7 @@ export const connectRedis = async (nodes, logger, cb) => {
   });
 
   // 哨兵模式示例
-  const redisClient = new Redis({
+  const redisClient = await new Redis({
     sentinels: sentinels,
     name: nodes.sentinels, // 需与哨兵配置的主节点名称一致
     password: nodes.pwd, // 主节点密码
@@ -44,4 +50,6 @@ export const connectRedis = async (nodes, logger, cb) => {
   redisClient.on('error', (error) => {
     logger.error(`Connected to Redis is error: ${error}`);
   });
+
+  return redisClient;
 };

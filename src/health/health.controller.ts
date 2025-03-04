@@ -6,7 +6,7 @@ import {
   DiskHealthIndicator,
   HealthCheckResult,
 } from '@nestjs/terminus';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('健康检查模块')
 @Controller('health')

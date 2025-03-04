@@ -1,24 +1,23 @@
-import { DynamicModule, Global, Module } from '@nestjs/common';
-import { KafkaConfig } from './kafka.message';
+import { Global, Module } from '@nestjs/common';
 import { KafkaService } from './kafka.service';
+import { ApolloConfigService } from '../appollo/apolloClient.service';
+import { connectKafka } from './index';
 
 @Global()
 @Module({
-  providers: [KafkaService],
-  exports: [KafkaService],
+  providers: [
+    {
+      provide: 'KafkaClient',
+      inject: [ApolloConfigService],
+      useFactory: async (apolloConfigService: ApolloConfigService) => {
+        // 读取apollo配置
+        const kafkaConnectInfo = await apolloConfigService.getKafkaConnection();
+        const kafkaClient = await connectKafka(kafkaConnectInfo);
+        return kafkaClient;
+      },
+    },
+    KafkaService,
+  ],
+  exports: [KafkaService, 'KafkaClient'],
 })
-export class KafkaModule {
-  // static register(kafkaConfig: KafkaConfig): DynamicModule {
-  //   return {
-  //     global: true,
-  //     module: KafkaModule,
-  //     providers: [
-  //       {
-  //         provide: KafkaService,
-  //         useValue: new KafkaService(kafkaConfig),
-  //       },
-  //     ],
-  //     exports: [KafkaService],
-  //   };
-  // }
-}
+export class KafkaModule {}

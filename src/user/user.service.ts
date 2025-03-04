@@ -1,21 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { GlobalService } from '@src/global/global.service';
+import { Injectable, Inject } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly globalService: GlobalService) {}
+  constructor(@Inject('PrismaClient') private prisma: PrismaClient) {}
 
   async create(data: any): Promise<any> {
-    return this.globalService.getPrisma().user.create({ data });
+    return this.prisma.user.create({ data });
   }
 
   async findAll(): Promise<any[]> {
-    return this.globalService.getPrisma().user.findMany();
+    return this.prisma.user.findMany();
   }
 
   async findBy(params): Promise<any[]> {
     const { skip, take, cursor, where, orderBy } = params;
-    return this.globalService.getPrisma().user.findMany({
+    return this.prisma.user.findMany({
       skip,
       take,
       cursor,
@@ -25,14 +25,14 @@ export class UserService {
   }
 
   async remove(where): Promise<any> {
-    return this.globalService.getPrisma().user.delete({
+    return this.prisma.user.delete({
       where,
     });
   }
 
   async update(params): Promise<any> {
     const { where, data } = params;
-    return this.globalService.getPrisma().user.update({
+    return this.prisma.user.update({
       data,
       where,
     });

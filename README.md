@@ -12,21 +12,22 @@ nestjs + typescript + pnpm + apollo + docker + winston + prisma + mongodb + mysq
 
 ## 功能列表
 
-```bash
-1、jwt 登录鉴权
-2、swagger api在线文档
-3、apollo 配置管理中心
-4、多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
-5、基建：代码规范、风格、文件命名、提交规范、cicd、docker、拦截器、过滤器、中间件，统一出入参
-6、日志跟踪（winston）
-7、gitlab cicd：.gitlab-ci.yml
-8、容器化部署：Dockerfile
-9、内置爬虫功能
-10、内置飞书告警
-11、内置图片合成功能
-12、支持静态资源服务器
-13、支持多环境区分
-```
+- ✅ jwt 登录鉴权
+- ✅ swagger api在线文档
+- ✅ apollo 配置管理中心
+- ✅ 多数据源（MySQL、MongoDB、ES、Kafka、Redis）、持久层框架ORM（prisma）
+- ✅ 基建完善（代码规范、代码风格、文件命名、提交规范、cicd、docker、拦截器、过滤器、中间件、守卫、统一出入参）
+- ✅ 日志跟踪（winston）
+- ✅ gitlab cicd
+- ✅ 支持容器化部署
+- ✅ 内置爬虫功能
+- ✅ 内置飞书告警
+- ✅ 内置图片合成功能
+- ✅ 支持静态资源服务器
+- ✅ 支持多环境区分
+- ✅ 支持服务健康检查
+- ✅ 支持自定义调度器
+- ⬜ 集成GraphQL
 
 ## 项目启动
 
@@ -92,6 +93,9 @@ pnpm install @nestjs/jwt @nestjs/passport passport passport-jwt
 ## prisma
 
 pnpm install @nestjs/prisma prisma @prisma/client
+
+[prisma官网](https://www.prisma.io/docs/getting-started)
+Prisma目前支持的数据库有：PostgreSQL、MySQL、SQL Server、SQLite、MongoDB、 CockroachDB、PlanetScale、MariaDB
 
 **Monogodb采用原生的连接方式，不使用prisma。具体使用查看datasources/mongodb**
 
