@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 const connectLogger = new Logger('connectMongoDB');
 
 // 建立连接
+// url格式: mongodb://username:pwd@ip:27017,ip:27017,ip:27017/dbname?retryWrites=true
 export async function connectMongoDB(connectUrl, logger = connectLogger) {
   let MONGODB_CONNECTSTRING = connectUrl;
   if (!MONGODB_CONNECTSTRING) {

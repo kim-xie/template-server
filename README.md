@@ -2,7 +2,7 @@
 
 ## 架构
 
-![架构](whiteboard_exported_image.png)
+![架构](jiagou.png)
 
 ## 技术栈
 

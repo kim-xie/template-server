@@ -8,6 +8,7 @@ export const connectEs = async (nodes, logger = connectLogger, cb = null) => {
       logger.error('Not Found ES Nodes');
       return;
     }
+    // nodes 格式：http://ip:9200,http://ip:9200
     // 创建 Elasticsearch 客户端
     const esClient = await new Client({ nodes: nodes?.split(',') });
     logger.log(`Connected to ES: ${nodes}`);

@@ -8,6 +8,7 @@ export async function connectKafka(
   cb = null,
 ) {
   try {
+    // brokers 格式：ip:9200,ip:9200,ip:9200
     const { clientId, brokers, groupId } = kafkaInfo || {};
     if (!clientId || !brokers) {
       logger.error('Not Found Kafka Connect Info');

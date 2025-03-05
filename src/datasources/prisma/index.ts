@@ -13,6 +13,7 @@ export const connectPrisma = async (
       return;
     }
     // mysql数据库连接
+    // datasourceUrl格式：mysql://username:pwd@ip:4000/dbname?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     const prisma = new PrismaClient({
       datasourceUrl,
       log: ['query', 'info', 'warn', 'error'],

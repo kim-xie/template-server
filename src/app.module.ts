@@ -15,6 +15,7 @@ import { KafkaModule } from './datasources/kafka/kafka.module';
 import { PrismaModule } from './datasources/prisma/prisma.module';
 import { RedisModule } from './datasources/redis/redis.module';
 import { MongoDBModule } from './datasources/mongodb/mongodb.module';
+import { DemoModule } from './demo/demo.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { MongoDBModule } from './datasources/mongodb/mongodb.module';
     KafkaModule,
     RedisModule,
     SpiderModule,
+    DemoModule,
   ], // 依赖注入
   controllers: [AppController],
   providers: [AppService],
