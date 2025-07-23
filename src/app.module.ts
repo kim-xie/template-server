@@ -15,6 +15,7 @@ import { KafkaModule } from './datasources/kafka/kafka.module';
 import { PrismaModule } from './datasources/prisma/prisma.module';
 import { RedisModule } from './datasources/redis/redis.module';
 import { MongoDBModule } from './datasources/mongodb/mongodb.module';
+import { WechatRobotModule } from './wechatRobot/wechatRobot.module';
 import { DemoModule } from './demo/demo.module';
 
 @Module({
@@ -39,6 +40,7 @@ import { DemoModule } from './demo/demo.module';
     KafkaModule,
     RedisModule,
     SpiderModule,
+    WechatRobotModule,
     DemoModule,
   ], // 依赖注入
   controllers: [AppController],

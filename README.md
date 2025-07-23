@@ -27,6 +27,7 @@ nestjs + typescript + pnpm + apollo + docker + winston + prisma + mongodb + mysq
 - ✅ 支持多环境区分
 - ✅ 支持服务健康检查
 - ✅ 支持自定义调度器
+- ✅ 支持微信机器人
 - ⬜ 集成GraphQL
 
 ## 项目启动
