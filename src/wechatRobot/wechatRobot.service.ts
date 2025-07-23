@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { WechatferryAgent } from '@wechatferry/agent';
 /**
  * 微信机器人 官网：https://wcferry.netlify.app/
- * pnpm add -D @wechatferry/agent
+ * pnpm add @wechatferry/agent
  */
 @Injectable()
 export class WechatRobotService {
