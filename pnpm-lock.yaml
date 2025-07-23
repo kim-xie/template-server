@@ -47,6 +47,9 @@ dependencies:
   axios:
     specifier: ^1.7.7
     version: 1.7.9(debug@4.4.0)
+  ccxt:
+    specifier: ^4.4.95
+    version: 4.4.95
   copy-webpack-plugin:
     specifier: ^12.0.2
     version: 12.0.2(webpack@5.11.0)
@@ -3908,6 +3911,17 @@ packages:
 
   /caniuse-lite@1.0.30001695:
     resolution: {integrity: sha512-vHyLade6wTgI2u1ec3WQBxv+2BrTERV28UXQu9LO6lZ9pYeMk34vjXFLOxo1A4UBA8XTL4njRQZdno/yYaSmWw==}
+
+  /ccxt@4.4.95:
+    resolution: {integrity: sha512-S7qq2ZGf03Nmj1FEggJYDjNKo7S4LiSfs4tNJbdBFLTjXiT4L8FLnciXt0U1tN+zbcpgWSezxgMlsWmB7qn3IQ==}
+    engines: {node: '>=15.0.0'}
+    requiresBuild: true
+    dependencies:
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
 
   /centra@2.7.0(debug@4.4.0):
     resolution: {integrity: sha512-PbFMgMSrmgx6uxCdm57RUos9Tc3fclMvhLSATYN39XsDV29B89zZ3KA89jmY0vwSGazyU+uerqwa6t+KaodPcg==}

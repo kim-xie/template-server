@@ -17,6 +17,7 @@ import { RedisModule } from './datasources/redis/redis.module';
 import { MongoDBModule } from './datasources/mongodb/mongodb.module';
 import { WechatRobotModule } from './wechatRobot/wechatRobot.module';
 import { DemoModule } from './demo/demo.module';
+import { TradeModule } from './trade/trade.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { DemoModule } from './demo/demo.module';
     SpiderModule,
     WechatRobotModule,
     DemoModule,
+    TradeModule,
   ], // 依赖注入
   controllers: [AppController],
   providers: [AppService],
